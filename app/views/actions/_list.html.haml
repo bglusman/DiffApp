@@ -1,0 +1,6 @@
+%ul
+  - actions.each do |action|
+    - if action == current
+      %li= action.name
+    - else
+      %li= link_to action.name, action

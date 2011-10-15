@@ -10,21 +10,9 @@ Af::Application.routes.draw do
 
   match "/signout" => "sessions#destroy", :as => :signout
 
-  resources :sponsors do
-    member do
-      get :edit
-      post :update
-    end
-  end
-
-  resources :incentives do
-    collection do
-      get :index
-    end
-    member do
-      get :show
-    end
-  end
+  resources :sponsors, :only => [:edit, :update]
+  resources :incentives, :only => [:index, :show]
+  resources :actions, :only => [:show]
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
