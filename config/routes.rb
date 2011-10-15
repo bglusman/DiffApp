@@ -15,6 +15,15 @@ Af::Application.routes.draw do
     end
   end
 
+  resources :incentives do
+    collection do
+      get :index
+    end
+    member do
+      get :show
+    end
+  end
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
