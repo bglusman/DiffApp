@@ -1,0 +1,7 @@
+%div.action_incentives
+  Incentives for this action:
+  %ul
+    - incentives.each do |incentive|
+      %li
+        = link_to incentive.name, incentive
+        = raw "(#{provider_link incentive.provider})"
