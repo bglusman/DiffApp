@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  name: MyText
+  description: MyText
+  sponsor_id: 1
+
+two:
+  name: MyText
+  description: MyText
+  sponsor_id: 1

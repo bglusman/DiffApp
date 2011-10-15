@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  name: MyText
+  description: MyText
+  action_id: 1
+  claimant_id: 1
+  supporter_id: 1
+  sponsor_id: 1
+  performed: false
+
+two:
+  name: MyText
+  description: MyText
+  action_id: 1
+  claimant_id: 1
+  supporter_id: 1
+  sponsor_id: 1
+  performed: false

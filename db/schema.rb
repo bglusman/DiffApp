@@ -11,6 +11,40 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 0) do
+ActiveRecord::Schema.define(:version => 20111015153201) do
+
+  create_table "actions", :force => true do |t|
+    t.text     "name"
+    t.text     "description"
+    t.integer  "sponsor_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "actors", :force => true do |t|
+    t.string   "username"
+    t.string   "name"
+    t.string   "email"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "incentives", :force => true do |t|
+    t.text     "name"
+    t.text     "description"
+    t.integer  "action_id"
+    t.integer  "claimant_id"
+    t.integer  "supporter_id"
+    t.integer  "sponsor_id"
+    t.boolean  "performed"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "sponsors", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
 end
