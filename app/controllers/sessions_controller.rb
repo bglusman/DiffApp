@@ -5,4 +5,10 @@ class SessionsController < ApplicationController
     session[:actor_id] = actor.id
     redirect_to root_url, :notice => "Signed in!"
   end
+
+  def destroy
+    session[:actor_id] = nil
+    redirect_to root_url, :notice => "Signed out!"
+  end
+
 end
