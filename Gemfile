@@ -25,6 +25,5 @@ group :test do
   gem 'cucumber-rails'
   gem 'capybara-webkit'
   gem 'headless'
-  gem 'spork'
   gem 'database_cleaner'
 end
