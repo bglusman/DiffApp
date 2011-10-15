@@ -9,6 +9,7 @@ gem 'coffee-filter'
 group :staging, :production do
   gem 'pg'
 end
+gem 'omniauth'
 
 group :assets do
   gem 'sass-rails',   '~> 3.1.4'
