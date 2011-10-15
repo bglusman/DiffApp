@@ -5,8 +5,11 @@ gem 'rails', '3.1.1'
 gem 'jquery-rails'
 gem 'haml-rails'
 gem 'coffee-filter'
-gem 'pg'
 gem 'omniauth'
+
+group :staging, :production do
+  gem 'pg'
+end
 
 group :assets do
   gem 'sass-rails',   '~> 3.1.4'
@@ -23,6 +26,5 @@ group :test do
   gem 'cucumber-rails'
   gem 'capybara-webkit'
   gem 'headless'
-  gem 'spork'
   gem 'database_cleaner'
 end
