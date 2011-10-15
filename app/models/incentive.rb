@@ -5,4 +5,8 @@ class Incentive < ActiveRecord::Base
   belongs_to :supporter, :class_name => "Actor", :foreign_key => :supporter_id
 
   validates :name, :presence => true
+
+  def provider
+    supporter || sponsor
+  end
 end

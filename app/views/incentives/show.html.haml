@@ -1,0 +1,8 @@
+%h1 Incentive: #{@incentive.name}
+- unless @provider.blank?
+  %h2 Provided by: #{@provider.name}
+- unless @incentive.description.blank?
+  %h2= @incentive.description
+%h1 Action: #{@action.name}
+- if @current_actor.blank?
+  %h2 Log in to claim this incentive!

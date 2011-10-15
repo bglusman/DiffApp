@@ -8,4 +8,4 @@
 
 actionarium = Sponsor.create :name => "Actionarium"
 action = Action.create :sponsor_id => actionarium.id, :name => "Start a company"
-Incentive.create :action_id => action.id, :name => "20 minutes of designer time", :sponsor_id => actionarium.id
+Incentive.create :action_id => action.id, :name => "20 minutes of designer time", :description => "These are the details of the incentive.", :sponsor_id => actionarium.id
