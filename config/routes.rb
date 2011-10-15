@@ -1,21 +1,17 @@
 Af::Application.routes.draw do
   get "home/index"
 
-  match "/auth/:provider/callback" => "sessions#create"
+  get '/auth/twitter/callback', :to => 'sessions#create', :as => 'callback'
+  get '/auth/failure', :to => 'sessions#error', :as => 'failure'
+  get '/profile', :to => 'sessions#show', :as => 'show'
+  delete '/signout', :to => 'sessions#destroy', :as => 'signout'
+
+  #  match "/auth/:provider/callback" => "sessions#create"
 
   resources :sponsors do
     member do
       get :edit
       post :update
-    end
-  end
-
-  resources :incentives do
-    collection do
-      get :index
-    end
-    member do
-      get :show
     end
   end
 
