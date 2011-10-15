@@ -6,6 +6,7 @@ gem 'jquery-rails'
 gem 'haml-rails'
 gem 'coffee-filter'
 gem 'pg'
+gem 'omniauth'
 
 group :assets do
   gem 'sass-rails',   '~> 3.1.4'
