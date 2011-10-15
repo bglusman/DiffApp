@@ -5,7 +5,10 @@ gem 'rails', '3.1.1'
 gem 'jquery-rails'
 gem 'haml-rails'
 gem 'coffee-filter'
-gem 'pg'
+
+group :staging, :production do
+  gem 'pg'
+end
 
 group :assets do
   gem 'sass-rails',   '~> 3.1.4'
