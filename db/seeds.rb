@@ -5,3 +5,7 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+actionarium = Sponsor.create :name => "Actionarium"
+action = Action.create :sponsor_id => actionarium.id, :name => "Start a company"
+Incentive.create :action_id => action.id, :name => "20 minutes of designer time", :sponsor_id => actionarium.id
