@@ -1,0 +1,4 @@
+%ul
+  - @actions.each do |action|
+    %li
+      = (action==@action) ? action.name : link_to(action.name, edit_sponsor_action_path(@sponsor, action))

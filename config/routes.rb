@@ -10,7 +10,9 @@ Af::Application.routes.draw do
 
   match "/signout" => "sessions#destroy", :as => :signout
 
-  resources :sponsors, :only => [:edit, :update]
+  resources :sponsors, :only => [:edit, :update] do
+    resources :actions, :only => [:edit, :new], :controller => "sponsors/actions"
+  end
   resources :incentives, :only => [:index, :show]
   resources :actions, :only => [:show]
 
