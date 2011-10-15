@@ -1,0 +1,5 @@
+%h1 Sponsor#edit
+%p= @sponsor.name
+%ul
+  - @sponsor.actions.each do |action|
+    %li= action.name
