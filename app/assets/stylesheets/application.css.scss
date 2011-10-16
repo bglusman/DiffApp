@@ -33,6 +33,7 @@ body.splash {
     .light { color: lighten($panel-color-2, 20%); }
     float: left;
     margin-left: 20px;
+    a { color: inherit; text-decoration:none; }
 }
 
 .splash .logo {
