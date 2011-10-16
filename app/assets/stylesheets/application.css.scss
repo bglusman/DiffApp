@@ -8,8 +8,15 @@ $panel-color-4: #f0822e;
 $bg-color: $panel-color-0;
 
 @mixin basic-text-shadow($size) {
-    @include text-shadow(#000 1px 1px $size);
+    @include text-shadow(#000 0px 1px $size);
 }
+@mixin inset-text-shadow {
+    @include text-shadow(rgba(255, 255, 255, 0) 0px -1px 0.2px);
+}
+@mixin box-shadow-big {
+    @include box-shadow(rgba(0, 0, 0, 0.5) 0px 1px 8px);
+}
+    
 
 body {
     background: $panel-color-0;
@@ -73,16 +80,9 @@ table {
         font-size: 15px;
         border-bottom: 2px solid $bg-color;
         padding: 1em;
-        color: #fff;
-        @include basic-text-shadow(1px);
-        &.action {
-            background: $panel-color-1;
-        }
-        &.incentive {
-            background: $panel-color-2;
-        }
         &.links {
             background: $panel-color-3;
+            white-space: nowrap;
         }
         a {
             color: inherit;
@@ -90,14 +90,37 @@ table {
             font-weight: bold;
             text-decoration: none;
         }
-        a.button {
-            background: $panel-color-4;
-            @include border-radius(4px);
-            @include box-shadow(rgba(0, 0, 0, 0.2) 0px 1px 2px);
-            padding: 4px;
-            font-size: 15px;
-        }
     }
+}
+
+.action {
+    color: #fff;
+    @include basic-text-shadow(1px);
+    background: $panel-color-1;
+}
+.incentive {
+    color: #fff;
+    @include basic-text-shadow(1px);
+    background: $panel-color-2;
+}
+.links {
+    background: $panel-color-3;
+}
+
+a.button, input.button {
+    background: $panel-color-4;
+    @include border-radius(4px);
+    @include box-shadow(rgba(0, 0, 0, 0.2) 0px 1px 2px);
+    padding: 4px;
+    font-size: 15px;
+    @include inset-text-shadow;
+    color: darken($panel-color-4, 40%);
+    border: 1px solid darken($panel-color-4, 40%);
+    cursor: pointer;
+    white-space: nowrap;
+}
+a.button:hover, input.button:hover {
+    background: $panel-color-2;
 }
 
 .notice {
@@ -117,4 +140,42 @@ table {
     margin-right: 20px;
     @include border-bottom-radius(8px);
     padding: 10px;
+}
+
+.panel {
+    $radius: 16px;
+    .action, .incentive, .links {
+        padding: 20px;
+        @include box-shadow-big;
+        h1 { font-size: 26px; }
+        h2 { font-size: 22px; font-weight: normal; }
+        h3 { font-size: 18px; font-weight: normal; }
+        h1, h2, h3 { margin: 10px 0 }
+    }
+    .action {
+        @include border-top-radius($radius);
+    }
+    .incentive {
+    }
+    .links {
+        @include border-bottom-radius($radius);
+    }
+}
+
+.confirm {
+    width: 180px;
+    float: left;
+}
+.fine_print {
+    width: 300px;
+    float: right;
+    font-size: 14px;
+    line-height: 14px;
+    background: rgba(0, 0, 0, 0.1);
+    @include border-radius(4px);
+    padding: 8px;
+}
+
+.clear {
+    clear: both;
 }

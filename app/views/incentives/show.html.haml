@@ -1,16 +1,21 @@
-%h1 Who needs help?
-%h2= @action.name
-%h3= @action.description
-%h1 Who cares about it?
-%h2 #{@provider.name rescue ""} #{@incentive.name}
-- unless @incentive.description.blank?
-  %h2= @incentive.description
-- if current_actor.blank?
-  %h2 Log in to claim this incentive!
-- else
-  = form_tag :controller => "incentives", :action => "claim" do
-    = hidden_field_tag :_method, "put"
-    = hidden_field_tag :id, @incentive.id
-    = hidden_field_tag :claimant_id, current_actor.id
-    = submit_tag "Claim this incentive!"
-    %p You'll be commited to helping out by completing the task as described above. The reward will be reserved for you, and delivered when the task is complete.
+.panel
+  .action
+    %h1 Who needs help?
+    %h2 #{@action.cause.name} needs #{@action.name}
+    %h3= @action.description
+  .incentive
+    %h1 Who cares about it?
+    %h2 #{@provider.name rescue ""} will #{@incentive.name}
+    - unless @incentive.description.blank?
+      %h3= @incentive.description
+  .links
+    - if current_actor.blank?
+      %h2 Log in to claim this incentive!
+    - else
+      = form_tag :controller => "incentives", :action => "claim" do
+        = hidden_field_tag :_method, "put"
+        = hidden_field_tag :id, @incentive.id
+        = hidden_field_tag :claimant_id, current_actor.id
+        .confirm= submit_tag "Claim this incentive!", :class => :button
+        .fine_print You'll be commited to helping out by completing the task as described above. The reward will be reserved for you, and delivered when the task is complete.
+    .clear
