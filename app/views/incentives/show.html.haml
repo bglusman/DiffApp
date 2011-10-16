@@ -1,8 +1,16 @@
-%h1 Incentive: #{@incentive.name}
-- unless @provider.blank?
-  %h2 Provided by: #{@provider.name}
+%h1 Who needs help?
+%h2= @action.name
+%h3= @action.description
+%h1 Who cares about it?
+%h2 #{@provider.name} #{@incentive.name}
 - unless @incentive.description.blank?
   %h2= @incentive.description
-%h1 Action: #{@action.name}
-- if @current_actor.blank?
+- if current_actor.blank?
   %h2 Log in to claim this incentive!
+- else
+  = form_tag :controller => "incentives", :action => "claim" do
+    = hidden_field_tag :_method, "put"
+    = hidden_field_tag :id, @incentive.id
+    = hidden_field_tag :claimant_id, current_actor.id
+    = submit_tag "Claim this incentive!"
+    %p You'll be commited to helping out by completing the task as described above. The reward will be reserved for you, and delivered when the task is complete.

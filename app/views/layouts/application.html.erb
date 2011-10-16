@@ -8,13 +8,20 @@
 </head>
 <body>
 <div id="user_nav">
-  <% if current_actor %>
-    Welcome, <%= current_actor.name %>!
+  <% if logged_in_actor %>
+    Welcome, <%= logged_in_actor.name %>!
     <%= link_to "Sign Out", signout_path %>
   <% else %>
+    Welcome, <%= current_actor.name %>!
     <%= link_to "Sign in with Twitter", "/auth/twitter" %>
   <% end %>
 </div>
+
+<% if flash[:warning] or flash[:notice] %>
+  <div class="notice">
+    <%= flash[:warning] || flash[:notice] %>
+  </div>
+<% end %>
 
 <%= yield %>
 

@@ -15,7 +15,11 @@ Af::Application.routes.draw do
   resources :sponsors, :only => [:edit, :update] do
     resources :actions, :only => [:edit, :new], :controller => "sponsors/actions"
   end
-  resources :incentives, :only => [:index, :show]
+  resources :incentives, :only => [:index, :show] do
+    member do
+      put :claim
+    end
+  end
   resources :actions, :only => [:show]
 
   # The priority is based upon order of creation:
