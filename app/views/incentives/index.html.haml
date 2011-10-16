@@ -18,4 +18,4 @@
         %td
           = link_to "I'll do it", incentive
           or
-          = link_to "I'll offer a reward"
+          = link_to "I'll offer a reward", new_incentive_path(:action_id => incentive.action.id)

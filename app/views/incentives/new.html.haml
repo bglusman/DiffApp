@@ -1,0 +1,12 @@
+%h1 Who needs help?
+%h2= @action.name
+%h3= @action.description
+%h1 What will you do in return?
+= form_for @incentive do |f|
+  = hidden_field :incentive, :supporter_id
+  I will...
+  = f.text_field :name
+  %p More details:
+  %p= f.text_area :description
+  = submit_tag "Save"
+  = link_to "Cancel", incentives_path
