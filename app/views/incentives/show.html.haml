@@ -17,5 +17,8 @@
         = hidden_field_tag :id, @incentive.id
         = hidden_field_tag :claimant_id, current_actor.id
         .confirm= submit_tag "Claim this incentive!", :class => :button
-        .fine_print You'll be commited to helping out by completing the task as described above. The reward will be reserved for you, and delivered when the task is complete.
+        .fine_print
+          You'll be commited to helping out by completing the task as described above.
+          The reward will be reserved for you, and delivered when the task is complete.
+          = raw "(#{link_to "cancel", incentives_path})"
     .clear

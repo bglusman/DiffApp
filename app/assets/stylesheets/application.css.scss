@@ -118,9 +118,10 @@ a.button, input.button {
     border: 1px solid darken($panel-color-4, 40%);
     cursor: pointer;
     white-space: nowrap;
+    text-decoration: none;
 }
 a.button:hover, input.button:hover {
-    background: $panel-color-2;
+    background: lighten($panel-color-4, 10%);
 }
 
 .notice {
@@ -174,6 +175,7 @@ a.button:hover, input.button:hover {
     background: rgba(0, 0, 0, 0.1);
     @include border-radius(4px);
     padding: 8px;
+    a { color: inherit; }
 }
 
 .clear {
