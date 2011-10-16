@@ -75,17 +75,26 @@ body.splash {
 }
 
 table {
+    $radius: 16px;
     width: 100%;
     border-collapse: collapse;
+    tbody {
+        @include box-shadow-big;
+        @include border-radius($radius);
+    }
     th {
         color: #fff;
         @include basic-text-shadow(8px);
         font-size: 22px;
         padding-bottom: 10px;
     }
+    tr:first-child td:first-child { @include border-top-left-radius($radius); }
+    tr:first-child td:last-child { @include border-top-right-radius($radius); }
+    tr:last-child td:first-child { @include border-bottom-left-radius($radius); }
+    tr:last-child td:last-child { @include border-bottom-right-radius($radius); }
     td {
         font-size: 15px;
-        border-bottom: 2px solid $bg-color;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.4);
         padding: 1em;
         &.links {
             background: $panel-color-3;
