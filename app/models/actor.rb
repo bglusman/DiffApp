@@ -1,5 +1,6 @@
 class Actor < ActiveRecord::Base
   has_many :incentives, :foreign_key => :claimant_id
+  has_many :provided_incentives, :class_name => "Incentive", :foreign_key => :supporter_id
 
   def self.create_with_omniauth(auth)
     create! do |user|

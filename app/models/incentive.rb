@@ -4,7 +4,7 @@ class Incentive < ActiveRecord::Base
   belongs_to :supporter, :class_name => "Actor", :foreign_key => :supporter_id
 
   validates :name, :presence => true
-  validates :supporter, :presence => true
+#  validates :supporter, :presence => true
 
   scope :complete, where(:performed => true)
   scope :incomplete, :conditions => ["(performed = 'f' or performed is null)"]

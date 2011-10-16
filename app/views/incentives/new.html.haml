@@ -4,6 +4,7 @@
 %h1 What will you do in return?
 = form_for @incentive do |f|
   = hidden_field :incentive, :supporter_id
+  = hidden_field :incentive, :action_id
   I will...
   = f.text_field :name
   %p More details:

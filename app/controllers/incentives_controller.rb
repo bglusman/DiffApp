@@ -19,7 +19,7 @@ class IncentivesController < ApplicationController
 
   def new
     @action = Action.find params[:action_id]
-    @incentive = Incentive.new(:supporter_id => @action.id)
+    @incentive = Incentive.new(:supporter_id => current_actor.id, :action_id => @action.id)
   end
 
   def create
