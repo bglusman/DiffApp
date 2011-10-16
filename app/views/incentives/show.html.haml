@@ -2,7 +2,7 @@
 %h2= @action.name
 %h3= @action.description
 %h1 Who cares about it?
-%h2 #{@provider.name} #{@incentive.name}
+%h2 #{@provider.name rescue ""} #{@incentive.name}
 - unless @incentive.description.blank?
   %h2= @incentive.description
 - if current_actor.blank?

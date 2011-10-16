@@ -10,6 +10,6 @@ class Incentive < ActiveRecord::Base
   scope :incomplete, :conditions => ["(performed = 'f' or performed is null)"]
 
   def provider
-    supporter || sponsor
+    supporter
   end
 end

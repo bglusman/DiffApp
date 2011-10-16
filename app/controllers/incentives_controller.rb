@@ -17,6 +17,13 @@ class IncentivesController < ApplicationController
     redirect_to actor_path @claimant
   end 
 
+  def validate
+    @incentive = Incentive.find params[:id]
+    @incentive.update_attributes! :performed => true
+    flash[:notice] = "Thanks!"
+    redirect_to actor_path @incentive.provider
+  end
+
   def new
     @action = Action.find params[:action_id]
     @incentive = Incentive.new(:supporter_id => current_actor.id, :action_id => @action.id)

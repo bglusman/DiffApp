@@ -17,7 +17,7 @@ Af::Application.routes.draw do
   end
   resources :incentives, :only => [:index, :show, :new, :create] do
     member do
-      put :claim
+      put :claim, :validate
     end
   end
   resources :actions, :only => [:show]
