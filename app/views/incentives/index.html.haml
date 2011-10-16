@@ -4,15 +4,18 @@
     %th Who cares about it?
     %th How will you take action?
   %tbody
-    - @incentives.each do |incentive|
+    - @incentives.each_with_index do |incentive, index|
       %tr
-        %td.action
-          -if incentive.action.cause.description
+        -if incentive.action.cause.description
+          %td{ :class => "action id#{index}"}
             = link_to incentive.action.cause.name
-          -else
+            needs
+            =  incentive.action.name
+        -else
+          %td.action
             = incentive.action.cause.name
-          needs
-          =  incentive.action.name
+            needs
+            =  incentive.action.name
         %td.incentive
           = link_to incentive.supporter.name, incentive.supporter
           will
@@ -24,4 +27,19 @@
             = link_to "Do the work", incentive, :class => "button"
             or
             = link_to "Offer your own reward", new_incentive_path(:action_id => incentive.action.id), :class => "button"
+      :javascript
+        $('.id#{index}').qtip({
+           content: '#{incentive.action.cause.description}',
+           position: {
+              corner: {
+                 target: 'center',
+                 tooltip: 'topLeft'
+              }
+           },
+           show: 'mouseover',
+           hide: 'mouseout'
+        })
+
+
+      
 
