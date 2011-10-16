@@ -1,4 +1,5 @@
 Af::Application.routes.draw do
+
   get "home/index"
 
   get '/auth/twitter/callback', :to => 'sessions#create', :as => 'callback'
@@ -10,6 +11,7 @@ Af::Application.routes.draw do
 
   match "/signout" => "sessions#destroy", :as => :signout
 
+  resources :actors, :only => [:show]
   resources :sponsors, :only => [:edit, :update] do
     resources :actions, :only => [:edit, :new], :controller => "sponsors/actions"
   end
