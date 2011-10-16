@@ -6,6 +6,9 @@ class Incentive < ActiveRecord::Base
   validates :name, :presence => true
   validates :supporter, :presence => true
 
+  scope :complete, where(:performed => true)
+  scope :incomplete, :conditions => ["(performed = 'f' or performed is null)"]
+
   def provider
     supporter || sponsor
   end

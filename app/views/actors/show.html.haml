@@ -1,13 +1,18 @@
 %h1 Actor view
+%name= @actor.name
 
-%name
-  =@actor.name
-
-%br
-
-%actions
+%h2 My rewards (waiting to finish):
+- if @actor.incentives.incomplete.empty?
+  (none)
+- else
   %ul
-    -@actor.incentives.each do |incentive|
-      -if incentive.performed
-        %li #{incentive.action.name} - #{incentive.name}
+    - @actor.incentives.incomplete.each do |incentive|
+      %li #{incentive.action.name} - #{incentive.name}
 
+%h2 My rewards (finished):
+- if @actor.incentives.complete.empty?
+  (none)
+- else
+  %ul
+    - @actor.incentives.complete.each do |incentive|
+      %li #{incentive.action.name} - #{incentive.name}
