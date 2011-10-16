@@ -7,10 +7,10 @@
 #   Mayor.create!(name: 'Emanuel', city: cities.first)
 
 cause = Cause.create! :name => "Kids"
-supporter = Actor.create! :name => "Ruzzle"
-action = Action.create!  :name => "help with reading difficulties.",
-                        :cause_id => cause.id,
-                        :description => "Teachers who are experts in learning difficulties help with task and puzzle design."
+supporter = Actor.create! :name => "Natasha"
+action = Action.create!   :name => "help with reading difficulties.",
+                          :cause_id => cause.id,
+                          :description => "Ruzzle needs teachers who are experts in learning difficulties to help with task and puzzle design."
 Incentive.create!   :action_id => action.id,
                     :supporter_id => supporter.id,
                     :name => "give you a massage.",
@@ -20,9 +20,9 @@ Incentive.create!   :action_id => action.id,
 cause = Cause.create! :name => "Bike Church",
                       :description => "Run by the neighborhood bike works in Philadelphia, PA"
 supporter = Actor.create! :name => "Brian G."
-action = Action.create!  :name => "used bike parts.",
-                        :cause_id => cause.id,
-                        :description => "Philadelphia Neighborhood Bikeworks runs the Bike 'Church' " +
+action = Action.create!   :name => "used bike parts.",
+                          :cause_id => cause.id,
+                          :description => "Philadelphia Neighborhood Bikeworks runs the Bike 'Church' " +
                           "and needs bikes and spare parts to repair and " +
                           "provide to low income families for environmentally friendly transportation"
 Incentive.create!   :action_id => action.id,
@@ -46,18 +46,18 @@ cause = Cause.create! :name => "Montgomery County, PA",
                       :description => "Montgomery County is a suburb to the northwest of Philadelphia, PA"
 
 supporter = Actor.create! :name => "RSVP of Montgomery County"
-action = Action.create!  :name => "help tutoring illiterate adults",
-                        :cause_id => cause.id,
-                        :description => "10% of adults are not fully literate, and volunteers can help them become confident and functional reading and writing!"
+action = Action.create!   :name => "help tutoring illiterate adults",
+                          :cause_id => cause.id,
+                          :description => "10% of adults are not fully literate, and volunteers can help them become confident and functional reading and writing!"
 
 
 cause = Cause.create! :name => "Startup Rookies",
                       :description => "Entrepreneurs building their first company and product"
 
 supporter = Actor.create! :name => "LawMeets"
-action = Action.create!  :name => "need startup veterans advice",
-                        :cause_id => cause.id,
-                        :description => "Actionaries need to submit online video responses to specific questions."
+action = Action.create!   :name => "need startup veterans advice",
+                          :cause_id => cause.id,
+                          :description => "Actionaries need to submit online video responses to specific questions."
 
 Incentive.create!   :action_id => action.id,
                     :supporter_id => supporter.id,

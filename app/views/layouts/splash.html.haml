@@ -1,9 +1,10 @@
 !!!
 %html
   %head
-    %title Actionarium
+    %title Causaction
+    = render :partial => 'fonts'
     = stylesheet_link_tag "application"
     = javascript_include_tag "application"
     = csrf_meta_tags
-  %body
+  %body.splash
     = yield
