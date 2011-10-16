@@ -1,9 +1,18 @@
 %h1 Find stuff to do
-%ul
-  - @incentives.each do |incentive|
-    %li
-      = link_to incentive.action.name, incentive.action
-      = "/"
-      = incentive.name
-      = ":"
-      = link_to "Claim", incentive
+%table
+  %thead
+    %th Who needs help?
+    %th Who cares about it?
+    %th What can you do?
+  %tbody
+    - @incentives.each do |incentive|
+      %tr
+        %td
+          = link_to incentive.action.name, incentive.action
+        %td
+          = provider_link incentive.provider
+          = incentive.name
+        %td
+          = link_to "I'll do it", incentive
+          or
+          = link_to "I'll offer a reward"
