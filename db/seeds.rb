@@ -6,21 +6,10 @@
 #   cities = City.create!([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create!(name: 'Emanuel', city: cities.first)
 
-cause = Cause.create! :name => "Kids"
-supporter = Actor.create! :name => "Natasha"
-action = Action.create!   :name => "help with reading difficulties.",
-                          :cause_id => cause.id,
-                          :description => "Ruzzle needs teachers who are experts in learning difficulties to help with task and puzzle design."
-Incentive.create!   :action_id => action.id,
-                    :supporter_id => supporter.id,
-                    :name => "give you a massage.",
-                    :description => "You can come to my studio for a complimentary 30 minute massage, must be local"
 
-
-cause = Cause.create! :name => "Bike Church",
-                      :description => "Run by the neighborhood bike works in Philadelphia, PA"
+cause = Cause.create! :name => "Philadelphia residents"
 supporter = Actor.create! :name => "Brian G."
-action = Action.create!   :name => "used bike parts.",
+action = Action.create!   :name => "reliable bikes for transportation.",
                           :cause_id => cause.id,
                           :description => "Philadelphia Neighborhood Bikeworks runs the Bike 'Church' " +
                           "and needs bikes and spare parts to repair and " +
@@ -49,6 +38,14 @@ supporter = Actor.create! :name => "RSVP of Montgomery County"
 action = Action.create!   :name => "help tutoring illiterate adults",
                           :cause_id => cause.id,
                           :description => "10% of adults are not fully literate, and volunteers can help them become confident and functional reading and writing!"
+
+Incentive.create!   :action_id => action.id,
+                    :supporter_id => supporter.id,
+                    :name => "give you a copy of world famous apple pie recipe",
+                    :description => "This recipe has been passed down through generations and has garnered praise "+
+                    "from hundreds of dinner guests as the best they've ever tasted!  You won't be disappointed!"
+
+
 
 
 cause = Cause.create! :name => "Startup Rookies",
