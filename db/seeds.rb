@@ -34,7 +34,7 @@ Incentive.create!   :action_id => action.id,
 cause = Cause.create! :name => "Montgomery County, PA",
                       :description => "Montgomery County is a suburb to the northwest of Philadelphia, PA"
 
-supporter = Actor.create! :name => "RSVP of Montgomery County"
+supporter = Actor.create! :name => "Janis G."
 action = Action.create!   :name => "help tutoring illiterate adults",
                           :cause_id => cause.id,
                           :description => "10% of adults are not fully literate, and volunteers can help them become confident and functional reading and writing!"
