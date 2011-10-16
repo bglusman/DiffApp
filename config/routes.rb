@@ -12,15 +12,15 @@ Af::Application.routes.draw do
   match "/signout" => "sessions#destroy", :as => :signout
 
   resources :actors, :only => [:show]
-  resources :sponsors, :only => [:edit, :update] do
-    resources :actions, :only => [:edit, :new], :controller => "sponsors/actions"
+  resources :causes, :only => [:new, :create, :show, :index] do
+    resources :actions, :only => [:edit, :new], :controller => "causes/actions"
   end
   resources :incentives, :only => [:index, :show, :new, :create] do
     member do
       put :claim, :validate
     end
   end
-  resources :actions, :only => [:show]
+  #resources :actions, :only => [:show] #or should this work but specify :controller => "causes/actions" ?
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
