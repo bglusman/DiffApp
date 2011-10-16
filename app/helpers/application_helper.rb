@@ -13,4 +13,12 @@ module ApplicationHelper
     provider = incentive.provider
     "#{cause.name} needs #{action.name} #{provider.name} will #{incentive.name}"
   end
+
+  def incentive_blurb(incentive)
+    if incentive.provider.name=='Neomind Labs'
+      raw "<div class='blurb'>Neomind Labs is a Center City Philadelphia consulting company focused on creating valuable software using cutting-edge technologies.</div>"
+    else
+      ""
+    end
+  end
 end

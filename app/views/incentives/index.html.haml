@@ -20,6 +20,7 @@
           = link_to incentive.supporter.name, incentive.supporter
           will
           = incentive.name
+          = incentive_blurb incentive
         %td.links
           - if incentive.provider == current_actor
             this is your reward!

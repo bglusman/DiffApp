@@ -20,6 +20,9 @@ Af::Application.routes.draw do
       put :claim, :validate
     end
   end
+
+  get "/phillystartup" => "incentives#index"
+
   #resources :actions, :only => [:show] #or should this work but specify :controller => "causes/actions" ?
 
   # The priority is based upon order of creation:
