@@ -18,7 +18,7 @@
       <%= link_to "Sign Out", signout_path %>
     <% else %>
       Welcome, <%= current_actor.name %>!
-      <%= link_to "Sign in with Twitter", "/auth/twitter" %>
+      <%= link_to "Sign in with Twitter", "/auth/twitter", :class => :button %>
     <% end %>
   </div>
 </div>
