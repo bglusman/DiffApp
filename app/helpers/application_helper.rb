@@ -6,4 +6,11 @@ module ApplicationHelper
       link_to provider.name, provider
     end
   end
+
+  def incentive_summary(incentive)
+    action = incentive.action
+    cause = action.cause
+    provider = incentive.provider
+    "#{cause.name} needs #{action.name} #{provider.name} will #{incentive.name}"
+  end
 end
