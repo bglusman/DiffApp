@@ -35,13 +35,13 @@ cause = Cause.create! :name => "Montgomery County, PA",
                       :description => "Montgomery County is a suburb to the northwest of Philadelphia, PA"
 
 supporter = Actor.create! :name => "Janis G."
-action = Action.create!   :name => "help tutoring illiterate adults",
+action = Action.create!   :name => "help tutoring illiterate adults.",
                           :cause_id => cause.id,
                           :description => "10% of adults are not fully literate, and volunteers can help them become confident and functional reading and writing!"
 
 Incentive.create!   :action_id => action.id,
                     :supporter_id => supporter.id,
-                    :name => "give you a copy of world famous apple pie recipe",
+                    :name => "give you a copy of her world famous apple pie recipe.",
                     :description => "This recipe has been passed down through generations and has garnered praise "+
                     "from hundreds of dinner guests as the best they've ever tasted!  You won't be disappointed!"
 
@@ -52,7 +52,7 @@ cause = Cause.create! :name => "Startup Rookies",
                       :description => "Entrepreneurs building their first company and product"
 
 supporter = Actor.create! :name => "LawMeets"
-action = Action.create!   :name => "need startup veterans advice",
+action = Action.create!   :name => "need startup veterans' advice.",
                           :cause_id => cause.id,
                           :description => "Actionaries need to submit online video responses to specific questions."
 
