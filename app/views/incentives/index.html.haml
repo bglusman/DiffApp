@@ -1,27 +1,27 @@
-%h1 Find stuff to do
 %table
   %thead
     %th Who needs help?
     %th Who cares about it?
-    %th What can you do?
+    %th How will you take action?
   %tbody
     - @incentives.each do |incentive|
       %tr
-        %td
+        %td.action
           -if incentive.action.cause.description
             = link_to incentive.action.cause.name
           -else
             = incentive.action.cause.name
           needs
           =  incentive.action.name
-        %td
+        %td.incentive
           = link_to incentive.supporter.name, incentive.supporter
           will
           = incentive.name
-        %td
+        %td.links
           - if incentive.provider == current_actor
             this is your reward!
           - else
-            = link_to "I'll do it", incentive
+            = link_to "Do the work", incentive, :class => "button"
             or
-            = link_to "I'll offer a reward", new_incentive_path(:action_id => incentive.action.id)
+            = link_to "Offer your own reward", new_incentive_path(:action_id => incentive.action.id), :class => "button"
+

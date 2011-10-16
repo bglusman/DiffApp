@@ -1,3 +1,56 @@
+@import "compass/css3";
+
+$panel-color-0: #515444;
+$panel-color-1: #4a7b7f;
+$panel-color-2: #79a68c;
+$panel-color-3: #f0ca99;
+$panel-color-4: #f0822e;
+$bg-color: $panel-color-0;
+
+@mixin basic-text-shadow($size) {
+    @include text-shadow(#000 1px 1px $size);
+}
+
+body {
+    background: $panel-color-0;
+    font-family: 'PT Sans', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+body.splash {
+    background: #111;
+}
+
+.content {
+    padding: 20px;
+}
+
+.header .logo {
+    font-family: 'Sansita One';
+    font-size: 44px;
+    color: $panel-color-2;
+    .light { color: lighten($panel-color-2, 20%); }
+    float: left;
+    margin-left: 20px;
+}
+
+.splash .logo {
+    font-family: 'Sansita One';
+    font-size: 80px;
+    color: $panel-color-2;
+    .light { color: lighten($panel-color-2, 20%); }
+    margin-top: 100px;
+    text-align: center;
+}
+.tagline {
+    font-family: 'Poly';
+    text-align: center;
+    color: $panel-color-3;
+    font-size: 36px;
+    margin-top: 20px;
+}
+
 .logo {
     img {
         display: block;
@@ -9,13 +62,58 @@
 table {
     width: 100%;
     border-collapse: collapse;
+    th {
+        color: #fff;
+        @include basic-text-shadow(8px);
+        font-size: 22px;
+        padding-bottom: 10px;
+    }
     td {
-        border: 1px solid #000;
+        font-size: 15px;
+        border-bottom: 2px solid $bg-color;
         padding: 1em;
+        color: #fff;
+        @include basic-text-shadow(1px);
+        &.action {
+            background: $panel-color-1;
+        }
+        &.incentive {
+            background: $panel-color-2;
+        }
+        &.links {
+            background: $panel-color-3;
+        }
+        a {
+            color: inherit;
+            font-size: 18px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+        a.button {
+            background: $panel-color-4;
+            @include border-radius(4px);
+            @include box-shadow(rgba(0, 0, 0, 0.2) 0px 1px 2px);
+            padding: 4px;
+            font-size: 15px;
+        }
     }
 }
 
 .notice {
     border: 1px solid red;
     padding: 1em;
+}
+
+.header {
+    background: #111;
+    height: 60px;
+}
+
+.nav {
+    background: $panel-color-1;
+    a { color: #fff }
+    float: right;
+    margin-right: 20px;
+    @include border-bottom-radius(8px);
+    padding: 10px;
 }

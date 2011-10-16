@@ -1,20 +1,26 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Actionarium</title>
+  <title>Causaction</title>
+  <%= render :partial => 'fonts' %>
   <%= stylesheet_link_tag    "application" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
 <body>
-<div id="user_nav">
-  <% if logged_in_actor %>
-    Welcome, <%= logged_in_actor.name %>!
-    <%= link_to "Sign Out", signout_path %>
-  <% else %>
-    Welcome, <%= current_actor.name %>!
-    <%= link_to "Sign in with Twitter", "/auth/twitter" %>
-  <% end %>
+<div class="header">
+  <div class="logo">
+    Caus<span class="light">action</span>
+  </div>
+  <div class="nav">
+    <% if logged_in_actor %>
+      Welcome, <%= logged_in_actor.name %>!
+      <%= link_to "Sign Out", signout_path %>
+    <% else %>
+      Welcome, <%= current_actor.name %>!
+      <%= link_to "Sign in with Twitter", "/auth/twitter" %>
+    <% end %>
+  </div>
 </div>
 
 <% if flash[:warning] or flash[:notice] %>
@@ -23,7 +29,9 @@
   </div>
 <% end %>
 
-<%= yield %>
+<div class="content">
+  <%= yield %>
+<div>
 
 </body>
 </html>
