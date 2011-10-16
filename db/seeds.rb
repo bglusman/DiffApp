@@ -17,7 +17,8 @@ Incentive.create!   :action_id => action.id,
                     :description => "You can come to my studio for a complimentary 30 minute massage, must be local"
 
 
-cause = Cause.create! :name => "Bike Church"
+cause = Cause.create! :name => "Bike Church",
+                      :description => "Run by the neighborhood bike works in Philadelphia, PA"
 supporter = Actor.create! :name => "Brian G."
 action = Action.create!  :name => "used bike parts.",
                         :cause_id => cause.id,
@@ -30,7 +31,8 @@ Incentive.create!   :action_id => action.id,
                     :description => "If you're local, I'll get a beer with you.  If not, you can grab it " +
                     "when you're in town or I can call your local bar and pick up the tab!"
 
-cause = Cause.create! :name => "Rails"
+cause = Cause.create! :name => "Rails",
+                      :description => "Ruby on Rails is an open source web framework."
 supporter = Actor.create! :name => "Neomind Labs"
 action = Action.create!   :name => "programming help",
                           :cause_id => cause.id,
@@ -40,7 +42,9 @@ Incentive.create!   :action_id => action.id,
                     :name => "donate $20 to the charity of your choice.",
                     :description => "Let us know the charity and we'll give the money in your name.  We'd also love to hear how you fixed the bug!"
 
-cause = Cause.create! :name => "Montgomery County, PA"
+cause = Cause.create! :name => "Montgomery County, PA",
+                      :description => "Montgomery County is a suburb to the northwest of Philadelphia, PA"
+
 supporter = Actor.create! :name => "RSVP of Montgomery County"
 action = Action.create!  :name => "help tutoring illiterate adults",
                         :cause_id => cause.id,

@@ -8,11 +8,14 @@
     - @incentives.each do |incentive|
       %tr
         %td
-          = incentive.action.cause.name
+          -if incentive.action.cause.description
+            = link_to incentive.action.cause.name
+          -else
+            = incentive.action.cause.name
           needs
           =  incentive.action.name
         %td
-          = incentive.supporter.name
+          = link_to incentive.supporter.name, incentive.supporter
           will
           = incentive.name
         %td
