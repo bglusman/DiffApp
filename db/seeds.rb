@@ -34,7 +34,7 @@ Incentive.create!   :action_id => action.id,
 cause = Cause.create! :name => "Rails",
                       :description => "Ruby on Rails is an open source web framework."
 supporter = Actor.create! :name => "Neomind Labs"
-action = Action.create!   :name => "programming help",
+action = Action.create!   :name => "programming help.",
                           :cause_id => cause.id,
                           :description => "There's a lot of bugs in the latest release candidate.  Pick one and fix it!"
 Incentive.create!   :action_id => action.id,
@@ -49,6 +49,25 @@ supporter = Actor.create! :name => "RSVP of Montgomery County"
 action = Action.create!  :name => "help tutoring illiterate adults",
                         :cause_id => cause.id,
                         :description => "10% of adults are not fully literate, and volunteers can help them become confident and functional reading and writing!"
+
+
+cause = Cause.create! :name => "Startup Rookies",
+                      :description => "Entrepreneurs building their first company and product"
+
+supporter = Actor.create! :name => "LawMeets"
+action = Action.create!  :name => "need startup veterans advice",
+                        :cause_id => cause.id,
+                        :description => "Actionaries need to submit online video responses to specific questions."
+
+Incentive.create!   :action_id => action.id,
+                    :supporter_id => supporter.id,
+                    :name => "give four hours of legal assistance.",
+                    :description => "LawMeets is a group dedicated to better enable the mentoring "+
+                    "process of young lawyers.  Students from their legal clinic will provide four "+
+                    "hours of legal help to an experienced entrepreneur for their help!"
+
+
+
 
 puts "Seeds added successfully."
 #Incentive.create!  :action_id => action.id,
