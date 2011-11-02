@@ -13,7 +13,7 @@
 
 ActiveRecord::Schema.define(:version => 20111016020941) do
 
-  create_table "actions", :force => true do |t|
+  create_table "activities", :force => true do |t|
     t.text     "name"
     t.text     "description"
     t.datetime "created_at"
@@ -41,7 +41,7 @@ ActiveRecord::Schema.define(:version => 20111016020941) do
   create_table "incentives", :force => true do |t|
     t.text     "name"
     t.text     "description"
-    t.integer  "action_id"
+    t.integer  "activity_id"
     t.integer  "claimant_id"
     t.integer  "supporter_id"
     t.integer  "sponsor_id"

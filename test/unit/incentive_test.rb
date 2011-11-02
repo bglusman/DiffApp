@@ -11,7 +11,7 @@ class IncentiveTest < ActiveSupport::TestCase
 
   def create_incentive
     sponsor = Sponsor.create :name => "sponsor"
-    action = Action.create :name => action, :sponsor_id => sponsor.id
-    @incentive = Incentive.create :name => "incentive", :action => action.id
+    activity = Activity.create :name => activity, :sponsor_id => sponsor.id
+    @incentive = Incentive.create :name => "incentive", :activity => activity.id
   end
 end

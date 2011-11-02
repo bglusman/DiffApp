@@ -1,8 +1,8 @@
 .panel
-  .action
+  .activity
     %h1 Who needs help?
-    %h2 #{@action.cause.name} needs #{@action.name}
-    %h3= @action.description
+    %h2 #{@activity.cause.name} needs #{@activity.name}
+    %h3= @activity.description
   .incentive
     %h1 Who cares about it?
     %h2 #{@provider.name rescue ""} will #{@incentive.name}
@@ -12,7 +12,7 @@
     - if current_actor.blank?
       %h2 Log in to claim this incentive!
     - else
-      = form_tag :controller => "incentives", :action => "claim" do
+      = form_tag :controller => "incentives", :activity => "claim" do
         = hidden_field_tag :_method, "put"
         = hidden_field_tag :id, @incentive.id
         = hidden_field_tag :claimant_id, current_actor.id

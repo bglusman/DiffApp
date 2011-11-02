@@ -109,12 +109,12 @@ table {
             text-decoration: none;
         }
     }
-    td.action, td.incentive {
+    td.activity, td.incentive {
         width: 360px;
     }
 }
 
-.action {
+.activity {
     color: #fff;
     @include basic-text-shadow(1px);
     background: $panel-color-1;
@@ -161,18 +161,26 @@ a.button:hover, input.button:hover {
     height: 60px;
 }
 
-.nav {
-    background: $panel-color-1;
-    a { color: #fff }
+.menu, .nav {
+    a { color: #fff; text-decoration: none;}
     float: right;
     margin-right: 20px;
+}
+
+.menu {
+    padding: 10px;
+
+}
+
+.nav {
+    background: $panel-color-1;
     @include border-bottom-radius(8px);
     padding: 10px;
 }
 
 .panel {
     $radius: 16px;
-    .action, .incentive, .links {
+    .activity, .incentive, .links {
         padding: 20px;
         @include box-shadow-big;
         h1 { font-size: 26px; }
@@ -180,7 +188,7 @@ a.button:hover, input.button:hover {
         h3 { font-size: 18px; font-weight: normal; }
         h1, h2, h3 { margin: 10px 0 }
     }
-    .action {
+    .activity {
         @include border-top-radius($radius);
     }
     .incentive {

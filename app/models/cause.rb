@@ -1,3 +1,3 @@
 class Cause < ActiveRecord::Base
-  has_many :actions
+  has_many :activities
 end

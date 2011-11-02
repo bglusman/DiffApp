@@ -1,9 +1,9 @@
 Given "there are incentives" do
   Given "there are sponsors"
-  Given "there are actions"
+  Given "there are activities"
   unless Incentive.exists?(:name => "incentive1")
-    Incentive.create! :name => "incentive1", :description => "incentive 1 description", :action_id => @action1.id, :sponsor_id => @sponsor1
-    Incentive.create! :name => "incentive2", :action_id => @action2.id, :sponsor_id => @sponsor2
+    Incentive.create! :name => "incentive1", :description => "incentive 1 description", :activity_id => @activity1.id, :sponsor_id => @sponsor1
+    Incentive.create! :name => "incentive2", :activity_id => @activity2.id, :sponsor_id => @sponsor2
   end
 end
 

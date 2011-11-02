@@ -1,21 +1,21 @@
 %table
   %thead
     %th Who needs help?
-    %th Who cares about it?
+    %th Who else is helping?
     %th How will you take action?
   %tbody
     - @incentives.each_with_index do |incentive, index|
       %tr
-        -if incentive.action.cause.description
-          %td{ :class => "action id#{index}"}
-            = link_to incentive.action.cause.name
+        -if incentive.activity.cause.description
+          %td{ :class => "activity id#{index}"}
+            = link_to incentive.activity.cause.name
             needs
-            =  incentive.action.name
+            =  incentive.activity.name
         -else
-          %td.action
-            = incentive.action.cause.name
+          %td.activity
+            = incentive.activity.cause.name
             needs
-            =  incentive.action.name
+            =  incentive.activity.name
         %td.incentive
           = link_to incentive.supporter.name, incentive.supporter
           will
@@ -27,10 +27,10 @@
           - else
             = link_to "Do the work", incentive, :class => "button"
             or
-            = link_to "Offer your own reward", new_incentive_path(:action_id => incentive.action.id), :class => "button"
+            = link_to "Support the work", new_incentive_path(:activity_id => incentive.activity.id), :class => "button"
       :javascript
         $('.id#{index}').qtip({
-           content: '#{incentive.action.cause.description}',
+           content: '#{incentive.activity.cause.description}',
            position: {
               corner: {
                  target: 'center',
@@ -40,7 +40,3 @@
            show: 'mouseover',
            hide: 'mouseout'
         })
-
-
-      
-

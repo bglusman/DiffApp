@@ -1,11 +1,15 @@
 class IncentivesController < ApplicationController
   def index
-    @incentives = Incentive.all
+    if params[:cause_id]
+      @incentives = Incentive.joins(:activity).where('activities.cause_id' => params[:cause_id])
+    else
+      @incentives = Incentive.all
+    end
   end
 
   def show
     @incentive = Incentive.find params[:id]
-    @action = @incentive.action
+    @activity = @incentive.activity
     @provider = @incentive.provider
   end
 
@@ -15,7 +19,7 @@ class IncentivesController < ApplicationController
     @incentive.update_attributes :claimant_id => @claimant.id
     flash[:notice] = "Thanks for helping out!"
     redirect_to actor_path @claimant
-  end 
+  end
 
   def validate
     @incentive = Incentive.find params[:id]
@@ -25,8 +29,8 @@ class IncentivesController < ApplicationController
   end
 
   def new
-    @action = Action.find params[:action_id]
-    @incentive = Incentive.new(:supporter_id => current_actor.id, :action_id => @action.id)
+    @activity = Activity.find params[:activity_id]
+    @incentive = Incentive.new(:supporter_id => current_actor.id, :activity_id => @activity.id)
   end
 
   def create
@@ -36,7 +40,7 @@ class IncentivesController < ApplicationController
       redirect_to actor_path @incentive.supporter
     else
       flash[:error] = @incentive.errors
-      redirect_to new_incentive_path :action_id => @incentive.action_id
+      redirect_to new_incentive_path :activity_id => @incentive.activity_id
     end
   end
 end

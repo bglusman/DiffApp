@@ -8,10 +8,10 @@ module ApplicationHelper
   end
 
   def incentive_summary(incentive)
-    action = incentive.action
-    cause = action.cause
+    activity = incentive.activity
+    cause = activity.cause
     provider = incentive.provider
-    "#{cause.name} needs #{action.name} #{provider.name} will #{incentive.name}"
+    "#{cause.name} needs #{activity.name} #{provider.name} will #{incentive.name}"
   end
 
   def incentive_blurb(incentive)

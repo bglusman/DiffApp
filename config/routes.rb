@@ -10,11 +10,9 @@ Af::Application.routes.draw do
   #  match "/auth/:provider/callback" => "sessions#create"
 
   match "/signout" => "sessions#destroy", :as => :signout
-
+  resources :causes
+  resources :activities
   resources :actors, :only => [:show]
-  resources :causes, :only => [:new, :create, :show, :index] do
-    resources :actions, :only => [:edit, :new], :controller => "causes/actions"
-  end
   resources :incentives, :only => [:index, :show, :new, :create] do
     member do
       put :claim, :validate
@@ -23,7 +21,7 @@ Af::Application.routes.draw do
 
   get "/phillystartup" => "incentives#index"
 
-  #resources :actions, :only => [:show] #or should this work but specify :controller => "causes/actions" ?
+  #resources :activities, :only => [:show] #or should this work but specify :controller => "causes/activities" ?
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
@@ -36,7 +34,7 @@ Af::Application.routes.draw do
   #   match 'products/:id/purchase' => 'catalog#purchase', :as => :purchase
   # This route can be invoked with purchase_url(:id => product.id)
 
-  # Sample resource route (maps HTTP verbs to controller actions automatically):
+  # Sample resource route (maps HTTP verbs to controller activities automatically):
   #   resources :products
 
   # Sample resource route with options:
@@ -79,6 +77,6 @@ Af::Application.routes.draw do
   # See how all your routes lay out with "rake routes"
 
   # This is a legacy wild controller route that's not recommended for RESTful applications.
-  # Note: This route will make all actions in every controller accessible via GET requests.
+  # Note: This route will make all activities in every controller accessible via GET requests.
   # match ':controller(/:action(/:id(.:format)))'
 end

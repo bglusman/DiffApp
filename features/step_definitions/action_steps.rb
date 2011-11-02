@@ -1,7 +1,7 @@
-Given "there are actions" do
+Given "there are activities" do
   Given "there are sponsors"
-  unless Action.exists?(:name => "action1")
-    @action1 = Action.create :name => "action1", :sponsor_id => @sponsor1.id
-    @action2 = Action.create :name => "action2", :sponsor_id => @sponsor2.id
+  unless Activity.exists?(:name => "activity1")
+    @activity1 = Activity.create :name => "activity1", :sponsor_id => @sponsor1.id
+    @activity2 = Activity.create :name => "activity2", :sponsor_id => @sponsor2.id
   end
 end

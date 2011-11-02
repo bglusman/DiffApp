@@ -1,13 +1,13 @@
 = form_for @incentive do |f|
   .panel
-    .action
+    .activity
       %h1 Who needs help?
-      %h2 #{@action.cause.name} needs #{@action.name}
-      %h3= @action.description
+      %h2 #{@activity.cause.name} needs #{@activity.name}
+      %h3= @activity.description
     .incentive
-      %h1 What will you do in return?
+      %h1 What will you do to support this? (offer an incentive, help someone else do it, whatever...)
       = hidden_field :incentive, :supporter_id
-      = hidden_field :incentive, :action_id
+      = hidden_field :incentive, :activity_id
       %p I will...
       %p.text= f.text_field :name
       %p More details:
@@ -15,7 +15,7 @@
     .links
       .confirm= submit_tag "Save", :class => :button
       .fine_print
-        You'll be commited to providing this reward to the first person who completes the task.
-        You'll be responsible for determining when the task has been completed.
+        You'll be commited to helping however you specify above the first person who agrees to the task.
+        You'll be responsible for determining whether they really did it.
         = raw "(#{link_to "cancel", incentives_path})"
       .clear
