@@ -1,0 +1,6 @@
+- current ||= nil
+%ul
+  - activities.each do |activity|
+    %li
+      = (activity==current) ? activity.name : link_to(activity.name, activity)
+      = raw "(#{provider_link activity.sponsor})"

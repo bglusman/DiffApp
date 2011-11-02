@@ -1,4 +1,4 @@
-class Action < ActiveRecord::Base
+class Activity < ActiveRecord::Base
   has_many :incentives
 
   belongs_to :cause

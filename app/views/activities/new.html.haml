@@ -1,0 +1,6 @@
+= form_for @activity do |f|
+	= #f.label :cause
+	=# collection_select :activity, :cause_id, @causes, :id, :name
+	= f.label :name
+	= f.text_field :name
+	= submit_tag "Save"

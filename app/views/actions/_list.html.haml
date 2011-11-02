@@ -1,6 +1,0 @@
-- current ||= nil
-%ul
-  - actions.each do |action|
-    %li
-      = (action==current) ? action.name : link_to(action.name, action)
-      = raw "(#{provider_link action.sponsor})"

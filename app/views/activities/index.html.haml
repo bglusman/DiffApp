@@ -1,0 +1,6 @@
+.new
+	= link_to "Create a new Activity", new_activity_path
+
+-@activities.each do |activity|
+	.activity
+		= link_to activity.name, incentives_path(:activity_id => activity.id)
