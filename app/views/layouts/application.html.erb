@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Causaction</title>
+  <title>Diff</title>
   <%= render :partial => 'fonts' %>
   <%= stylesheet_link_tag    "application" %>
   <%= javascript_include_tag "application" %>
@@ -10,8 +10,8 @@
 <body>
 <div class="header">
   <div class="logo">
-    <a href="/incentives">Caus<span class="light">action</span></a>
-    <span class="tagline">'Cause action matters.</span>
+    <a href="/incentives">Diff<span class="light">ed</span></a>
+    <span class="tagline">Make a difference.  Quickly.</span>
   </div>
   <div class="nav">
     <% if logged_in_actor %>
@@ -21,6 +21,10 @@
       Welcome, <%= current_actor.name %>!
       <%= link_to "Sign in with Twitter", "/auth/twitter", :class => :button %>
     <% end %>
+  </div>
+  <div class="menu">
+    <%= link_to "Causes", causes_path %>
+    <%= link_to "Activities", activities_path %>
   </div>
 </div>
 
