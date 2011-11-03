@@ -1,4 +1,32 @@
 class IncentivesController < ApplicationController
+
+  def vote_up
+    begin
+      current_actor.vote_for(@incentive = Incentive.find(params[:id]))
+      render :nothing => true, :status => 200
+    rescue ActiveRecord::RecordInvalid
+      render :nothing => true, :status => 404
+    end
+  end
+
+  def vote_down
+    begin
+      current_actor.vote_against(@incentive = Incentive.find(params[:id]))
+      render :nothing => true, :status => 200
+    rescue ActiveRecord::RecordInvalid
+      render :nothing => true, :status => 404
+    end
+  end
+
+  # def flag
+  #   begin
+  #     current_actor.flag(@incentive = Incentive.find(params[:id]))
+  #     render :nothing => true, :status => 200
+  #   rescue
+  #     render :nothing => true, :status => 404
+  #   end
+  # end
+
   def index
     if params[:cause_id]
       @incentives = Incentive.joins(:activity).where('activities.cause_id' => params[:cause_id])

@@ -10,12 +10,21 @@ Af::Application.routes.draw do
   #  match "/auth/:provider/callback" => "sessions#create"
 
   match "/signout" => "sessions#destroy", :as => :signout
-  resources :causes
-  resources :activities
+  resources :causes do
+    member do
+      post :vote_up, :vote_down#, :flag
+    end
+  end
+  resources :activities do
+    member do
+      post :vote_up, :vote_down#, :flag
+    end
+  end
   resources :actors, :only => [:show]
-  resources :incentives, :only => [:index, :show, :new, :create] do
+  resources :incentives do
     member do
       put :claim, :validate
+      post :vote_up, :vote_down#, :flag
     end
   end
 
