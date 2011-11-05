@@ -1,20 +1,12 @@
 class CausesController < ApplicationController
   def vote_up
-    begin
-      current_actor.vote_for(@cause = Cause.find(params[:id]))
-      render :nothing => true, :status => 200
-    rescue ActiveRecord::RecordInvalid
-      render :nothing => true, :status => 404
-    end
+    current_actor.vote_up Cause.find(params[:id])
+    redirect_to :back
   end
 
   def vote_down
-    begin
-      current_actor.vote_against(@cause = Cause.find(params[:id]))
-      render :nothing => true, :status => 200
-    rescue ActiveRecord::RecordInvalid
-      render :nothing => true, :status => 404
-    end
+    current_actor.vote_down Cause.find(params[:id])
+    redirect_to :back
   end
 
   # def flag

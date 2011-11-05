@@ -3,6 +3,7 @@
 
 -@activities.each do |activity|
   .activity
-    = link_to activity.name, incentives_path(:activity_id => activity.id)
     = render :partial => "shared/vote", :locals => {:target => activity}
+    = link_to activity.name, incentives_path(:activity_id => activity.id)
+    .popularity Popularity: #{activity.popularity}
     .clear

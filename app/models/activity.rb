@@ -6,4 +6,8 @@ class Activity < ActiveRecord::Base
   belongs_to :cause
   belongs_to :submitter, :class_name => 'Actor'
   validates :name, :presence => true
+
+  def popularity
+    plusminus
+  end
 end

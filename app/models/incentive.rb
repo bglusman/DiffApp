@@ -14,4 +14,8 @@ class Incentive < ActiveRecord::Base
   def provider
     supporter
   end
+
+  def popularity
+    plusminus
+  end
 end

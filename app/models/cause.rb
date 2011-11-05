@@ -3,4 +3,8 @@ class Cause < ActiveRecord::Base
   #make_flaggable
   has_many :activities
   belongs_to :submitter, :class_name => 'Actor'
+
+  def popularity
+    plusminus
+  end
 end

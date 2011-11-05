@@ -1,21 +1,13 @@
 class IncentivesController < ApplicationController
 
   def vote_up
-    begin
-      current_actor.vote_for(@incentive = Incentive.find(params[:id]))
-      render :nothing => true, :status => 200
-    rescue ActiveRecord::RecordInvalid
-      render :nothing => true, :status => 404
-    end
+    current_actor.vote_up Incentive.find(params[:id])
+    redirect_to :back
   end
 
   def vote_down
-    begin
-      current_actor.vote_against(@incentive = Incentive.find(params[:id]))
-      render :nothing => true, :status => 200
-    rescue ActiveRecord::RecordInvalid
-      render :nothing => true, :status => 404
-    end
+    current_actor.vote_down Incentive.find(params[:id])
+    redirect_to :back
   end
 
   # def flag

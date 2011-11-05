@@ -22,4 +22,12 @@ class Actor < ActiveRecord::Base
       Actor.create! :name => guest_name
     end
   end
+
+  def vote_up(target)
+    vote_exclusively_for target
+  end
+
+  def vote_down(target)
+    vote_exclusively_against target
+  end
 end
