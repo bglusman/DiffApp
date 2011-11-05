@@ -1,2 +1,10 @@
-%h1 Causes#show
-%p Find me in app/views/causes/show.html.haml
+%h1
+  = @cause.name
+%h2
+  = @cause.description
+
+-@cause.activities.each do |activity|
+  %h3
+    =activity.name
+    %br
+    =activity.description

@@ -1,2 +1,9 @@
-%h1 Causes#index
-%p Find me in app/views/causes/index.html.haml
+.new
+	= link_to "Create a new Cause", new_cause_path
+
+-@causes.each do |cause|
+	.cause
+		= link_to cause.name, incentives_path(:cause_id => cause.id)
+  .vote
+    = link_to "vote up", vote_up_cause_path(cause), :method => :post
+    = link_to "vote down", vote_down_cause_path(cause), :method => :post
