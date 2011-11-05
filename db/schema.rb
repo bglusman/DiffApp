@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111016020941) do
+ActiveRecord::Schema.define(:version => 20111104203956) do
 
   create_table "activities", :force => true do |t|
     t.text     "name"
@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(:version => 20111016020941) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "cause_id"
+    t.integer  "submitter_id"
   end
 
   create_table "actors", :force => true do |t|
@@ -36,6 +37,7 @@ ActiveRecord::Schema.define(:version => 20111016020941) do
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "submitter_id"
   end
 
   create_table "incentives", :force => true do |t|
@@ -48,6 +50,7 @@ ActiveRecord::Schema.define(:version => 20111016020941) do
     t.boolean  "performed"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "submitter_id"
   end
 
   create_table "sponsors", :force => true do |t|
@@ -56,7 +59,6 @@ ActiveRecord::Schema.define(:version => 20111016020941) do
     t.datetime "updated_at"
   end
 
-end
   create_table "votes", :force => true do |t|
     t.boolean  "vote",          :default => false
     t.integer  "voteable_id",                      :null => false
@@ -71,3 +73,4 @@ end
   add_index "votes", ["voter_id", "voter_type", "voteable_id", "voteable_type"], :name => "fk_one_vote_per_user_per_entity", :unique => true
   add_index "votes", ["voter_id", "voter_type"], :name => "index_votes_on_voter_id_and_voter_type"
 
+end
