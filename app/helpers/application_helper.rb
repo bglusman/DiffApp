@@ -21,4 +21,12 @@ module ApplicationHelper
       ""
     end
   end
+
+  def vote_up_path(target)
+    self.send "vote_up_#{target.class.name.downcase}_path", target
+  end
+
+  def vote_down_path(target)
+    self.send "vote_down_#{target.class.name.downcase}_path", target
+  end
 end

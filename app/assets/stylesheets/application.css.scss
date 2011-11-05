@@ -90,9 +90,9 @@ table {
     }
     tr:first-child td:first-child { @include border-top-left-radius($radius); }
     tr:first-child td:last-child { @include border-top-right-radius($radius); }
-    tr:nth-last-child(2) td:first-child { @include border-bottom-left-radius($radius); }
-    tr:nth-last-child(2) td:last-child { @include border-bottom-right-radius($radius); }
-    tr:nth-last-child(2) td { border:none }
+    tr:last-child td:first-child { @include border-bottom-left-radius($radius); }
+    tr:last-child td:last-child { @include border-bottom-right-radius($radius); }
+    tr:last-child td { border:none }
     td {
         vertical-align:top;
         font-size: 15px;

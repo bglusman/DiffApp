@@ -5,5 +5,5 @@
 	.activity
 		= link_to activity.name, incentives_path(:activity_id => activity.id)
 	.vote
-		= link_to "vote up", vote_up_activity_path(activity), :method => :post
-		= link_to "vote down", vote_down_activity_path(activity), :method => :post
+		= link_to "vote up", vote_up_path(activity), :method => :post
+		= link_to "vote down", vote_down_path(activity), :method => :post

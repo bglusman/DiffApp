@@ -6,27 +6,26 @@
   %tbody
     - @incentives.each_with_index do |incentive, index|
       %tr
-        -if incentive.activity.cause.description
-          %td{ :class => "activity id#{index}"}
+        %td.activity{ :data => {:tooltip => incentive.activity.cause.description} }
+          -if incentive.activity.cause.description
             = link_to incentive.activity.cause.name
             needs
             =  incentive.activity.name
-        -else
-          %td.activity
+          -else
             = incentive.activity.cause.name
             needs
             =  incentive.activity.name
-            .vote
-            = link_to "vote up", vote_up_activity_path(incentive.activity), :method => :post
-            = link_to "vote down", vote_down_activity_path(incentive.activity), :method => :post
+          .vote
+            = link_to "vote up", vote_up_path(incentive.activity), :method => :post
+            = link_to "vote down", vote_down_path(incentive.activity), :method => :post
         %td.incentive
           = link_to incentive.supporter.name, incentive.supporter
           will
           = incentive.name
           = incentive_blurb incentive
           .vote
-          = link_to "vote up", vote_up_incentive_path(incentive), :method => :post
-          = link_to "vote down", vote_down_incentive_path(incentive), :method => :post
+            = link_to "vote up", vote_up_path(incentive), :method => :post
+            = link_to "vote down", vote_down_path(incentive), :method => :post
         %td.links
           - if incentive.provider == current_actor
             this is your reward!
@@ -34,15 +33,3 @@
             = link_to "Do the work", incentive, :class => "button"
             or
             = link_to "Support the work", new_incentive_path(:activity_id => incentive.activity.id), :class => "button"
-      :javascript
-        $('.id#{index}').qtip({
-           content: '#{incentive.activity.cause.description}',
-           position: {
-              corner: {
-                 target: 'center',
-                 tooltip: 'topLeft'
-              }
-           },
-           show: 'mouseover',
-           hide: 'mouseout'
-        })
