@@ -5,3 +5,4 @@
   .cause
     = link_to cause.name, incentives_path(:cause_id => cause.id)
     = render :partial => "shared/vote", :locals => {:target => cause}
+    .clear
