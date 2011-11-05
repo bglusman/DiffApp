@@ -15,17 +15,13 @@
             = incentive.activity.cause.name
             needs
             =  incentive.activity.name
-          .vote
-            = link_to "vote up", vote_up_path(incentive.activity), :method => :post
-            = link_to "vote down", vote_down_path(incentive.activity), :method => :post
+          = render :partial => "shared/vote", :locals => {:target => incentive.activity}
         %td.incentive
           = link_to incentive.supporter.name, incentive.supporter
           will
           = incentive.name
           = incentive_blurb incentive
-          .vote
-            = link_to "vote up", vote_up_path(incentive), :method => :post
-            = link_to "vote down", vote_down_path(incentive), :method => :post
+          = render :partial => "shared/vote", :locals => {:target => incentive}
         %td.links
           - if incentive.provider == current_actor
             this is your reward!
