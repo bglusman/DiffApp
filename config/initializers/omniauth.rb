@@ -6,9 +6,5 @@ Rails.application.config.middleware.use OmniAuth::Builder do
     warn "with the command: CONSUMER_KEY=abc CONSUMER_SECRET=123 rails server"
     warn "*" * 80
   end
-  use OmniAuth::Strategies::Twitter, ENV['TWITTER_CONSUMER_KEY'], ENV['TWITTER_CONSUMER_SECRET']
-
-
-
-  # provider :twitter, 'TWITTER_CONSUMER_KEY', 'TWITTER_CONSUMER_SECRET'
+  provider :twitter, ENV['TWITTER_CONSUMER_KEY'], ENV['TWITTER_CONSUMER_SECRET']
 end

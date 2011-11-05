@@ -7,6 +7,7 @@ gem 'jquery-rails'
 gem 'haml-rails'
 gem 'coffee-filter'
 gem 'omniauth'
+gem 'omniauth-twitter'
 gem 'thumbs_up'
 
 group :staging, :production do
