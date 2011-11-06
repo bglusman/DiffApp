@@ -1,5 +1,7 @@
 = semantic_form_for @cause do |f|
   = f.inputs do
     =f.input :name, :as => :string
+    Who or what will benefit from activities created under this cause?  (Each activity belongs to just one cause for now, to help keep things focused.  We phrase the activities as "<NAME> needs <ACTIVITY>"" on the index page.)
     =f.input :description
+    The decription field is optional, but will populate a popup dialogue with more details when users mouseover an action for your cause on the index, if you enter one.  Some causes are self explanatory, and some could use some description or details for context.
   = f.buttons
