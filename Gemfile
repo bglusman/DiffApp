@@ -9,6 +9,7 @@ gem 'coffee-filter'
 gem 'omniauth'
 gem 'omniauth-twitter'
 gem 'thumbs_up'
+gem 'formtastic'
 
 group :staging, :production do
   gem 'pg'

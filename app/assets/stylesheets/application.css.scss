@@ -1,3 +1,6 @@
+@import "formtastic";
+
+
 @import "compass/css3";
 
 $panel-color-0: #515444;
@@ -113,6 +116,13 @@ table {
         width: 360px;
     }
 }
+
+.cause  {
+    color: #fff;
+    @include basic-text-shadow(1px);
+    background: $panel-color-1;
+}
+
 
 .activity {
     color: #fff;

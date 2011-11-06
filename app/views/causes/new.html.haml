@@ -1,4 +1,5 @@
-= form_for @cause do |f|
-	= f.label :name
-	= f.text_field :name
-	= submit_tag "Save"
+= semantic_form_for @cause do |f|
+  = f.inputs do
+    =f.input :name, :as => :string
+    =f.input :description
+  = f.buttons
