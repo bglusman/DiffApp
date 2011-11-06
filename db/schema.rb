@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111104203956) do
+ActiveRecord::Schema.define(:version => 20111106174540) do
 
   create_table "activities", :force => true do |t|
     t.text     "name"
@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(:version => 20111104203956) do
     t.datetime "updated_at"
     t.string   "provider"
     t.string   "uid"
+    t.string   "ip_address"
   end
 
   create_table "causes", :force => true do |t|

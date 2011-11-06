@@ -6,20 +6,28 @@ class Actor < ActiveRecord::Base
   has_many :incentives, :foreign_key => :claimant_id
   has_many :provided_incentives, :class_name => "Incentive", :foreign_key => :supporter_id
 
-  def self.create_with_omniauth(auth)
-    create! do |user|
-      user.provider = auth["provider"]
-      user.uid = auth["uid"]
-      user.name = auth["user_info"]["name"]
+  def self.create_with_omniauth(auth, ip_address)
+    if Actor.where(:ip_address => ip_address, :uid => nil).exists?
+      actor = Actor.where(:ip_address => ip_address).first
+      actor.provider = auth["provider"]
+      actor.uid = auth["uid"]
+      actor.name = auth["user_info"]["name"]
+      actor.save!
+    else
+      create! do |user|
+        user.provider = auth["provider"]
+        user.uid = auth["uid"]
+        user.name = auth["info"]["name"]
+      end
     end
   end
 
-  def self.guest
+  def self.guest(ip_address)
     guest_name = "Guest"
-    if Actor.where(:name => guest_name).exists?
-      Actor.where(:name => guest_name).first
+    if Actor.where(:ip_address => ip_address, :uid => nil).exists?
+      Actor.where(:ip_address => ip_address).first
     else
-      Actor.create! :name => guest_name
+      Actor.create! :name => guest_name, :ip_address => ip_address
     end
   end
 

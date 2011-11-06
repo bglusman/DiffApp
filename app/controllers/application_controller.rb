@@ -8,6 +8,6 @@ class ApplicationController < ActionController::Base
   end
 
   def current_actor
-    logged_in_actor || Actor.guest
+    logged_in_actor || Actor.guest(request.remote_ip)
   end
 end
