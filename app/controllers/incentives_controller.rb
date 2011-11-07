@@ -25,6 +25,7 @@ class IncentivesController < ApplicationController
     else
       @incentives = Incentive.all
     end
+    @activities = Activity.all
   end
 
   def show

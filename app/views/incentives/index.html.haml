@@ -4,7 +4,7 @@
     %th Who else is helping?
     %th How will you take action?
   %tbody
-    - @incentives.each_with_index do |incentive, index|
+    - @incentives.each do |incentive|
       %tr
         %td.activity{ :data => {:tooltip => incentive.activity.cause.description} }
           = render :partial => "shared/vote", :locals => {:target => incentive.activity}
@@ -29,3 +29,31 @@
             = link_to "Do the work", incentive, :class => "button"
             or
             = link_to "Support the work", new_incentive_path(:activity_id => incentive.activity.id), :class => "button"
+
+-if Activity.all.count > Incentive.all.count
+  These activities don't have anyone offering to support them yet...  want to offer to help someone do them or an incentive for getting them done?
+
+  %table
+    %thead
+      %th Who needs help?
+      %th How will you take action?
+    %tbody
+      - @activities.each do |activity|
+        -if activity.incentives.size < 1
+          %tr
+            %td.activity{ :data => {:tooltip => activity.cause.description} }
+              = render :partial => "shared/vote", :locals => {:target => activity}
+              -if activity.cause.description
+                = link_to activity.cause.name
+                needs
+                =  activity.name
+              -else
+                = activity.cause.name
+                needs
+                =  activity.name
+              .clear
+            %td.links
+              = link_to "Do the work", activity, :class => "button"
+              or
+              = link_to "Support the work", new_incentive_path(:activity_id => activity.id), :class => "button"
+

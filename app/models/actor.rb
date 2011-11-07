@@ -8,7 +8,7 @@ class Actor < ActiveRecord::Base
 
   def self.create_with_omniauth(auth, ip_address)
     if Actor.where(:ip_address => ip_address, :uid => nil).exists?
-      actor = Actor.where(:ip_address => ip_address).first
+      actor = Actor.where(:ip_address => ip_address, :uid => nil).first
       actor.provider = auth["provider"]
       actor.uid = auth["uid"]
       actor.name = auth["user_info"]["name"]
@@ -25,10 +25,13 @@ class Actor < ActiveRecord::Base
   def self.guest(ip_address)
     guest_name = "Guest"
     if Actor.where(:ip_address => ip_address, :uid => nil).exists?
-      Actor.where(:ip_address => ip_address).first
+      guest = Actor.where(:ip_address => ip_address, :uid => nil).first
+      guest.name = guest_name
+      guest.save
     else
-      Actor.create! :name => guest_name, :ip_address => ip_address
+      guest =Actor.create! :name => guest_name, :ip_address => ip_address
     end
+    return guest
   end
 
   def vote_up(target)
