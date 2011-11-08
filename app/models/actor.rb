@@ -26,8 +26,6 @@ class Actor < ActiveRecord::Base
     guest_name = "Guest"
     if Actor.where(:ip_address => ip_address, :uid => nil).exists?
       guest = Actor.where(:ip_address => ip_address, :uid => nil).first
-      guest.name = guest_name
-      guest.save
     else
       guest =Actor.create! :name => guest_name, :ip_address => ip_address
     end

@@ -9,7 +9,7 @@
         %td.activity{ :data => {:tooltip => incentive.activity.cause.description} }
           = render :partial => "shared/vote", :locals => {:target => incentive.activity}
           -if incentive.activity.cause.description
-            = link_to incentive.activity.cause.name
+            = link_to incentive.activity.cause.name, incentives_path(:cause_id => incentive.activity.cause.id)
             needs
             =  incentive.activity.name
           -else
