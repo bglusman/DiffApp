@@ -1,19 +1,19 @@
 .panel
-  -if @actor == current_actor
-    =semantic_form_for @actor do |f|
+  -if @user == current_user
+    =semantic_form_for @user do |f|
       =f.inputs :name
       =f.buttons
 
   .activity
-    %h1= @actor.name
+    %h1= @user.name
     %h3 User profile
   .incentive
     %h3 Offered Rewards:
-    - if @actor.provided_incentives.incomplete.empty?
+    - if @user.provided_incentives.incomplete.empty?
       (none)
     - else
       %ul
-        - @actor.provided_incentives.incomplete.each do |incentive|
+        - @user.provided_incentives.incomplete.each do |incentive|
           %li
             - if incentive.performed
               #{incentive_summary incentive} (completed by #{incentive.claimant.name})
@@ -27,11 +27,11 @@
               #{incentive_summary incentive} (not yet claimed)
 
     %h3 Claimed Rewards:
-    - if @actor.incentives.empty?
+    - if @user.incentives.empty?
       (none)
     - else
       %ul
-        - @actor.incentives.incomplete.each do |incentive|
+        - @user.incentives.incomplete.each do |incentive|
           %li
             = incentive_summary incentive
             - if incentive.performed

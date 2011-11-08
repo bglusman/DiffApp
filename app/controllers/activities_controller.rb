@@ -1,17 +1,17 @@
 class ActivitiesController < ApplicationController
   def vote_up
-    current_actor.vote_up Activity.find(params[:id])
+    current_user.vote_up Activity.find(params[:id])
     redirect_to :back
   end
 
   def vote_down
-    current_actor.vote_down Activity.find(params[:id])
+    current_user.vote_down Activity.find(params[:id])
     redirect_to :back
   end
 
   # def flag
   #   begin
-  #     current_actor.flag(@activity = Activity.find(params[:id]))
+  #     current_user.flag(@activity = Activity.find(params[:id]))
   #     render :nothing => true, :status => 200
   #   rescue
   #     render :nothing => true, :status => 404
@@ -30,7 +30,7 @@ class ActivitiesController < ApplicationController
 
   def create
     @activity = Activity.new(params[:activity])
-    @activity.submitter = current_actor
+    @activity.submitter = current_user
     if @activity.save
       flash[:notice] = "Thanks for creating a new activity in support of your cause!"
       redirect_to activities_path

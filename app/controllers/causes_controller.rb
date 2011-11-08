@@ -1,17 +1,17 @@
 class CausesController < ApplicationController
   def vote_up
-    current_actor.vote_up Cause.find(params[:id])
+    current_user.vote_up Cause.find(params[:id])
     redirect_to :back
   end
 
   def vote_down
-    current_actor.vote_down Cause.find(params[:id])
+    current_user.vote_down Cause.find(params[:id])
     redirect_to :back
   end
 
   # def flag
   #   begin
-  #     current_actor.flag(@cause = Cause.find(params[:id]))
+  #     current_user.flag(@cause = Cause.find(params[:id]))
   #     render :nothing => true, :status => 200
   #   rescue
   #     render :nothing => true, :status => 404
@@ -24,7 +24,7 @@ class CausesController < ApplicationController
 
   def create
   	@cause = Cause.new(params[:cause])
-    @cause.submitter = current_actor
+    @cause.submitter = current_user
     if @cause.save
       flash[:notice] = "Thanks for creating a new cause!"
       redirect_to causes_path

@@ -23,7 +23,7 @@
           will
           = incentive.name
         %td.links
-          - if incentive.provider == current_actor
+          - if incentive.provider == current_user
             this is your reward!
           - else
             = link_to "Do the work", incentive, :class => "button"

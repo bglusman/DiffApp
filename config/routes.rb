@@ -21,7 +21,7 @@ Af::Application.routes.draw do
       post :vote_up, :vote_down#, :flag
     end
   end
-  resources :actors, :only => [:show, :update]
+  resources :users, :only => [:show, :update]
   resources :incentives do
     member do
       put :claim, :validate
