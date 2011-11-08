@@ -2,12 +2,13 @@ Af::Application.routes.draw do
 
   get "home/index"
 
-  get '/auth/twitter/callback', :to => 'sessions#create', :as => 'callback'
+  match "/auth/:provider/callback" => "sessions#create"
+  #get '/auth/twitter/callback', :to => 'sessions#create', :as => 'callback'
   get '/auth/failure', :to => 'sessions#error', :as => 'failure'
   get '/profile', :to => 'sessions#show', :as => 'show'
   delete '/signout', :to => 'sessions#destroy', :as => 'signout'
 
-  #  match "/auth/:provider/callback" => "sessions#create"
+
 
   match "/signout" => "sessions#destroy", :as => :signout
   resources :causes do
@@ -20,7 +21,7 @@ Af::Application.routes.draw do
       post :vote_up, :vote_down#, :flag
     end
   end
-  resources :actors, :only => [:show]
+  resources :actors, :only => [:show, :update]
   resources :incentives do
     member do
       put :claim, :validate

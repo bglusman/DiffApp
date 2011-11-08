@@ -1,4 +1,9 @@
 .panel
+  -if @actor == current_actor
+    =semantic_form_for @actor do |f|
+      =f.inputs :name
+      =f.buttons
+
   .activity
     %h1= @actor.name
     %h3 User profile
