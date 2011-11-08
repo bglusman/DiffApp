@@ -1,6 +1,6 @@
-class AddProviderAndUidToActor < ActiveRecord::Migration
+class AddProviderAndUidToUser < ActiveRecord::Migration
   def change
-    add_column :actors, :provider, :string
-    add_column :actors, :uid, :string
+    add_column :users, :provider, :string
+    add_column :users, :uid, :string
   end
 end

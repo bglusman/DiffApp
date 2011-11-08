@@ -5,8 +5,8 @@ class IncentiveTest < ActiveSupport::TestCase
     create_incentive
     @incentive.sponsor = Sponsor.create :name => "providing sponsor"
     assert_equal @incentive.provider.name, "providing sponsor"
-    @incentive.supporter = Actor.create :username => "actor", :name => "providing actor"
-    assert_equal @incentive.provider.name, "providing actor"
+    @incentive.supporter = User.create :username => "user", :name => "providing user"
+    assert_equal @incentive.provider.name, "providing user"
   end
 
   def create_incentive

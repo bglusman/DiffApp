@@ -1,5 +1,5 @@
-class AddIpAddressToActor < ActiveRecord::Migration
+class AddIpAddressToUser < ActiveRecord::Migration
   def change
-    add_column :actors, :ip_address, :string
+    add_column :users, :ip_address, :string
   end
 end

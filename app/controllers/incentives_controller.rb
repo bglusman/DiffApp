@@ -1,18 +1,18 @@
 class IncentivesController < ApplicationController
 
   def vote_up
-    current_actor.vote_up Incentive.find(params[:id])
+    current_user.vote_up Incentive.find(params[:id])
     redirect_to :back
   end
 
   def vote_down
-    current_actor.vote_down Incentive.find(params[:id])
+    current_user.vote_down Incentive.find(params[:id])
     redirect_to :back
   end
 
   # def flag
   #   begin
-  #     current_actor.flag(@incentive = Incentive.find(params[:id]))
+  #     current_user.flag(@incentive = Incentive.find(params[:id]))
   #     render :nothing => true, :status => 200
   #   rescue
   #     render :nothing => true, :status => 404
@@ -36,29 +36,29 @@ class IncentivesController < ApplicationController
 
   def claim
     @incentive = Incentive.find params[:id]
-    @claimant = Actor.find params[:claimant_id]
+    @claimant = User.find params[:claimant_id]
     @incentive.update_attributes :claimant_id => @claimant.id
     flash[:notice] = "Thanks for helping out!"
-    redirect_to actor_path @claimant
+    redirect_to user_path @claimant
   end
 
   def validate
     @incentive = Incentive.find params[:id]
     @incentive.update_attributes! :performed => true
     flash[:notice] = "Thanks!"
-    redirect_to actor_path @incentive.provider
+    redirect_to user_path @incentive.provider
   end
 
   def new
     @activity = Activity.find params[:activity_id]
-    @incentive = Incentive.new(:supporter_id => current_actor.id, :activity_id => @activity.id)
+    @incentive = Incentive.new(:supporter_id => current_user.id, :activity_id => @activity.id)
   end
 
   def create
     @incentive = Incentive.new params[:incentive]
     if @incentive.save
       flash[:notice] = "Thanks for offering to help! Your reward is now up for grabs."
-      redirect_to actor_path @incentive.supporter
+      redirect_to user_path @incentive.supporter
     else
       flash[:error] = @incentive.errors
       redirect_to new_incentive_path :activity_id => @incentive.activity_id

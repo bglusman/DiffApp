@@ -4,7 +4,7 @@ class Activity < ActiveRecord::Base
   has_many :incentives
 
   belongs_to :cause
-  belongs_to :submitter, :class_name => 'Actor'
+  belongs_to :submitter, :class_name => 'User'
   validates :name, :presence => true
 
   def popularity

@@ -8,7 +8,7 @@
 
 
 cause = Cause.create! :name => "Philadelphia residents"
-supporter = Actor.create! :name => "Brian G."
+supporter = User.create! :name => "Brian G."
 activity = Activity.create!   :name => "reliable bikes for transportation.",
                           :cause_id => cause.id,
                           :description => "Philadelphia Neighborhood Bikeworks runs the Bike 'Church' " +
@@ -22,7 +22,7 @@ Incentive.create!   :activity_id => activity.id,
 
 cause = Cause.create! :name => "Rails",
                       :description => "Ruby on Rails is an open source web framework."
-supporter = Actor.create! :name => "Neomind Labs"
+supporter = User.create! :name => "Neomind Labs"
 activity = Activity.create!   :name => "programming help.",
                           :cause_id => cause.id,
                           :description => "There's a lot of bugs in the latest release candidate.  Pick one and fix it!"
@@ -34,7 +34,7 @@ Incentive.create!   :activity_id => activity.id,
 cause = Cause.create! :name => "Montgomery County, PA",
                       :description => "Montgomery County is a suburb to the northwest of Philadelphia, PA"
 
-supporter = Actor.create! :name => "Janis G."
+supporter = User.create! :name => "Janis G."
 activity = Activity.create!   :name => "help tutoring illiterate adults.",
                           :cause_id => cause.id,
                           :description => "10% of adults are not fully literate, and volunteers can help them become confident and functional reading and writing!"
@@ -51,7 +51,7 @@ Incentive.create!   :activity_id => activity.id,
 cause = Cause.create! :name => "Startup Rookies",
                       :description => "Entrepreneurs building their first company and product"
 
-supporter = Actor.create! :name => "LawMeets"
+supporter = User.create! :name => "LawMeets"
 activity = Activity.create!   :name => "need startup veterans' advice.",
                           :cause_id => cause.id,
                           :description => "Actionaries need to submit online video responses to specific questions."

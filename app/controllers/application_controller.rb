@@ -1,13 +1,13 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
-  helper_method :current_actor, :logged_in_actor
+  helper_method :current_user, :logged_in_user
 
   private
-  def logged_in_actor
-    @current_actor ||= Actor.find(session[:actor_id]) if session[:actor_id]
+  def logged_in_user
+    @current_user ||= User.find(session[:user_id]) if session[:user_id]
   end
 
-  def current_actor
-    logged_in_actor || Actor.guest(request.remote_ip)
+  def current_user
+    logged_in_user || User.guest(request.remote_ip)
   end
 end
