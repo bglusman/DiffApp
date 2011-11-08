@@ -6,10 +6,11 @@ gem 'rails', '3.1.1'
 gem 'jquery-rails'
 gem 'haml-rails'
 gem 'coffee-filter'
-gem 'omniauth'
-gem 'omniauth-twitter'
+gem 'omniauth', '= 0.3.0'
+# gem 'omniauth-twitter' #for omniauth 1.0
 gem 'thumbs_up'
 gem 'formtastic'
+gem 'community_engine', '2.0.0.beta', :git => 'https://github.com/bglusman/communityengine.git', :branch => 'rails3'
 
 group :staging, :production do
   gem 'pg'
