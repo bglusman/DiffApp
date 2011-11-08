@@ -3,6 +3,8 @@ class CreateUsers < ActiveRecord::Migration
   end
   def self.up
     create_table "users" do |t|
+      t.string :username,                  :string
+      t.string :name,                      :string
       t.column :login,                     :string
       t.column :email,                     :string
       t.column :description,               :text
