@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kickstopper — Collective Action, Conditional Commitment</title>
+<style>
+  :root {
+    --ink: #1a1a1a;
+    --paper: #fafaf8;
+    --accent: #c0392b;
+    --muted: #888;
+    --border: #ddd;
+    --green: #27ae60;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Georgia', serif;
+    background: var(--paper);
+    color: var(--ink);
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 20px;
+    line-height: 1.6;
+  }
+  header {
+    border-bottom: 2px solid var(--ink);
+    padding-bottom: 12px;
+    margin-bottom: 32px;
+  }
+  header h1 {
+    font-size: 28px;
+    letter-spacing: -0.5px;
+    font-weight: 900;
+  }
+  header h1 span { color: var(--accent); }
+  header p.tagline {
+    font-size: 14px;
+    color: var(--muted);
+    font-style: italic;
+    margin-top: 4px;
+  }
+  nav {
+    margin-top: 8px;
+    font-size: 13px;
+  }
+  nav a {
+    color: var(--ink);
+    text-decoration: none;
+    margin-right: 16px;
+    border-bottom: 1px solid transparent;
+  }
+  nav a:hover, nav a.active { border-bottom: 1px solid var(--ink); }
+
+  /* Campaign list */
+  .campaign {
+    border-bottom: 1px solid var(--border);
+    padding: 20px 0;
+  }
+  .campaign:last-child { border-bottom: none; }
+  .campaign h2 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .campaign .target {
+    font-size: 13px;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+  }
+  .campaign .description {
+    font-size: 15px;
+    color: #444;
+    margin-bottom: 12px;
+  }
+  .campaign .stats {
+    display: flex;
+    gap: 24px;
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 12px;
+  }
+  .campaign .stats strong { color: var(--ink); }
+  .progress-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+  .progress-bar {
+    flex: 1;
+    height: 6px;
+    background: var(--border);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .progress-bar .fill {
+    height: 100%;
+    background: var(--accent);
+    transition: width 0.4s ease;
+  }
+  .progress-bar .fill.triggered { background: var(--green); }
+  .progress-pct {
+    font-size: 13px;
+    font-weight: 700;
+    min-width: 40px;
+    text-align: right;
+  }
+  .btn {
+    display: inline-block;
+    padding: 8px 20px;
+    border: 2px solid var(--ink);
+    background: none;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .btn:hover { background: var(--ink); color: var(--paper); }
+  .btn.committed {
+    background: var(--green);
+    border-color: var(--green);
+    color: white;
+    cursor: default;
+  }
+  .btn.triggered {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: white;
+  }
+
+  /* Detail view */
+  .detail { display: none; }
+  .detail.active { display: block; }
+  .detail .back {
+    font-size: 13px;
+    color: var(--muted);
+    cursor: pointer;
+    margin-bottom: 16px;
+    display: inline-block;
+  }
+  .detail .back:hover { color: var(--ink); }
+  .detail h2 { font-size: 22px; margin-bottom: 8px; }
+  .detail .demands {
+    margin: 16px 0;
+    padding: 16px;
+    background: #f5f5f0;
+    border-left: 3px solid var(--accent);
+  }
+  .detail .demands h3 {
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+    color: var(--accent);
+  }
+  .detail .demands ol {
+    padding-left: 20px;
+    font-size: 15px;
+  }
+  .detail .demands li { margin-bottom: 6px; }
+  .detail .action-text {
+    font-size: 15px;
+    margin: 16px 0;
+    padding: 12px;
+    border: 1px dashed var(--border);
+    font-style: italic;
+  }
+  .detail .signers {
+    margin: 16px 0;
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .detail .signers .signer {
+    display: inline-block;
+    margin: 2px 4px 2px 0;
+  }
+
+  /* Create form */
+  .create-form { display: none; }
+  .create-form.active { display: block; }
+  .create-form h2 { font-size: 22px; margin-bottom: 16px; }
+  .form-group { margin-bottom: 16px; }
+  .form-group label {
+    display: block;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+  }
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    width: 100%;
+    padding: 8px;
+    font-family: inherit;
+    font-size: 15px;
+    border: 1px solid var(--border);
+    background: white;
+  }
+  .form-group textarea { min-height: 80px; resize: vertical; }
+  .demand-inputs .demand-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+  .demand-inputs input { flex: 1; }
+  .demand-inputs button {
+    background: none;
+    border: 1px solid var(--border);
+    font-size: 18px;
+    cursor: pointer;
+    padding: 0 10px;
+  }
+  .form-help {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+
+  .accountability {
+    margin: 16px 0;
+    font-size: 13px;
+  }
+  .accountability h4 {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+  .accountability label {
+    display: block;
+    padding: 6px 0;
+    cursor: pointer;
+  }
+  .accountability input[type="checkbox"] { margin-right: 6px; }
+  .accountability .badge {
+    display: inline-block;
+    font-size: 11px;
+    padding: 2px 8px;
+    border: 1px solid var(--border);
+    margin: 2px 4px 2px 0;
+    font-weight: 600;
+  }
+  .accountability .badge.active { border-color: var(--green); color: var(--green); }
+  .accountability-stats {
+    font-size: 12px;
+    color: var(--muted);
+    margin: 8px 0;
+  }
+  footer {
+    margin-top: 48px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--muted);
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Kick<span>stopper</span></h1>
+  <p class="tagline">I will, if you will.</p>
+  <nav>
+    <a href="#" class="active" data-view="list">Active Campaigns</a>
+    <a href="#" data-view="create">Start a Campaign</a>
+    <a href="#" data-view="about">How It Works</a>
+  </nav>
+</header>
+
+<main>
+  <!-- List View -->
+  <div id="list-view" class="view active">
+    <div id="campaigns-list"></div>
+  </div>
+
+  <!-- Detail View -->
+  <div id="detail-view" class="detail view">
+    <span class="back" onclick="showView('list')">&larr; All campaigns</span>
+    <div id="detail-content"></div>
+  </div>
+
+  <!-- Create View -->
+  <div id="create-view" class="create-form view">
+    <h2>Start a Campaign</h2>
+    <div class="form-group">
+      <label>Target</label>
+      <input type="text" id="create-target" placeholder="e.g. Amazon, Nestlé, Elon Musk">
+    </div>
+    <div class="form-group">
+      <label>Campaign Title</label>
+      <input type="text" id="create-title" placeholder="e.g. Cancel Prime Until Workers Get Fair Pay">
+    </div>
+    <div class="form-group">
+      <label>What you'll do (the boycott action)</label>
+      <textarea id="create-action" placeholder="e.g. Cancel my Amazon Prime membership and not purchase from Amazon for one year"></textarea>
+    </div>
+    <div class="form-group">
+      <label>Demands (what must change)</label>
+      <div class="demand-inputs" id="demand-inputs">
+        <div class="demand-row">
+          <input type="text" placeholder="Demand #1">
+          <button onclick="addDemandInput()">+</button>
+        </div>
+      </div>
+      <p class="form-help">Specific, measurable demands work best.</p>
+    </div>
+    <div class="form-group">
+      <label>Trigger Threshold</label>
+      <input type="number" id="create-threshold" placeholder="10000" min="10">
+      <p class="form-help">How many people need to commit before the action is triggered?</p>
+    </div>
+    <div class="form-group">
+      <label>Deadline</label>
+      <input type="date" id="create-deadline">
+      <p class="form-help">When does this campaign close for new commitments?</p>
+    </div>
+    <button class="btn" onclick="createCampaign()">Launch Campaign</button>
+  </div>
+
+  <!-- About View -->
+  <div id="about-view" class="view" style="display:none;">
+    <h2>How Kickstopper Works</h2>
+    <p style="margin:16px 0;">Boycotts fail because acting alone feels pointless. Kickstopper fixes that.</p>
+    <ol style="padding-left:20px; margin:16px 0; font-size:15px;">
+      <li style="margin-bottom:12px;"><strong>Someone names a target and a demand.</strong> "Amazon must pay warehouse workers $25/hr minimum."</li>
+      <li style="margin-bottom:12px;"><strong>You pledge a specific action.</strong> "I will cancel Prime and not shop on Amazon for one year."</li>
+      <li style="margin-bottom:12px;"><strong>Your pledge is conditional.</strong> It only activates if the campaign hits its threshold — say, 100,000 people.</li>
+      <li style="margin-bottom:12px;"><strong>If the threshold is met, everyone acts together.</strong> If not, nobody is obligated.</li>
+    </ol>
+    <p style="color:var(--muted); font-size:14px; margin-top:24px;">No more lonely boycotts. No more wondering if anyone else cares. Move together or don't move at all.</p>
+  </div>
+</main>
+
+<footer>
+  kickstopper.org — Prototype v0.1 (minimalist)
+</footer>
+
+<script>
+// ── Fake Data Store ──
+const DB = {
+  campaigns: [
+    {
+      id: 1,
+      target: "Amazon",
+      title: "Cancel Prime Until Warehouse Workers Get Fair Pay",
+      action: "Cancel my Amazon Prime membership and make no purchases on Amazon for one full year.",
+      demands: [
+        "Raise minimum warehouse worker pay to $25/hour",
+        "End mandatory overtime during peak seasons",
+        "Allow unionization votes without interference"
+      ],
+      threshold: 250000,
+      current: 147832,
+      deadline: "2026-09-01",
+      signers: ["Sarah M.", "Anonymous", "David K.", "Priya R.", "Anonymous", "Mike T.", "Jen L.", "Anonymous", "Carlos G.", "Anonymous"],
+      createdBy: "WorkerSolidarity",
+      userSigned: false,
+      accountability: { buddy: 42, reminders: 31, public: 18, streak: 9 }
+    },
+    {
+      id: 2,
+      target: "Tesla",
+      title: "No Tesla Until Musk Divests from Political Operations",
+      action: "Will not purchase, lease, or rent any Tesla vehicle and will cancel any existing Tesla orders.",
+      demands: [
+        "Elon Musk must resign from all government advisory positions",
+        "Tesla must disclose all political donations and lobbying expenditures"
+      ],
+      threshold: 100000,
+      current: 98450,
+      deadline: "2026-06-15",
+      signers: ["Alex P.", "Anonymous", "Jordan W.", "Anonymous", "Sam R.", "Anonymous", "Chris B."],
+      createdBy: "DemocracyFirst",
+      userSigned: false,
+      accountability: { buddy: 38, reminders: 35, public: 20, streak: 7 }
+    },
+    {
+      id: 3,
+      target: "Nestlé",
+      title: "Boycott Nestlé Until They Stop Water Extraction in Drought Zones",
+      action: "Stop purchasing all Nestlé brands (including subsidiaries) for one year.",
+      demands: [
+        "Cease water extraction operations in regions under drought emergency declarations",
+        "Publish full water usage data for all extraction sites",
+        "Fund independent water access programs in affected communities"
+      ],
+      threshold: 500000,
+      current: 23100,
+      deadline: "2027-01-01",
+      signers: ["Anonymous", "River K.", "Anonymous"],
+      createdBy: "WaterIsLife",
+      userSigned: false,
+      accountability: { buddy: 45, reminders: 28, public: 15, streak: 12 }
+    },
+    {
+      id: 4,
+      target: "Spotify",
+      title: "Cancel Spotify Until Artists Get Fair Royalties",
+      action: "Cancel my Spotify subscription and use alternative music services for six months.",
+      demands: [
+        "Raise per-stream royalty rate to at least $0.01",
+        "Publish transparent royalty breakdowns for all artists",
+        "End payola-style playlist placement deals"
+      ],
+      threshold: 75000,
+      current: 76200,
+      deadline: "2026-05-01",
+      signers: ["Anonymous", "Indie Fan", "MusicMatters", "Anonymous", "DJ No Pay"],
+      createdBy: "FairPlay",
+      userSigned: false,
+      triggered: true,
+      accountability: { buddy: 40, reminders: 33, public: 19, streak: 8 }
+    }
+  ],
+  nextId: 5
+};
+
+// ── Rendering ──
+function showView(name) {
+  document.querySelectorAll('.view').forEach(v => v.style.display = 'none');
+  document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+  const viewEl = document.getElementById(name + '-view');
+  if (viewEl) viewEl.style.display = 'block';
+  const navLink = document.querySelector(`nav a[data-view="${name}"]`);
+  if (navLink) navLink.classList.add('active');
+  if (name === 'list') renderList();
+}
+
+function renderList() {
+  const container = document.getElementById('campaigns-list');
+  container.innerHTML = DB.campaigns.map(c => {
+    const pct = Math.min(100, Math.round((c.current / c.threshold) * 100));
+    const triggered = c.triggered || c.current >= c.threshold;
+    return `
+      <div class="campaign" onclick="showDetail(${c.id})" style="cursor:pointer;">
+        <div class="target">${c.target}</div>
+        <h2>${c.title}</h2>
+        <p class="description">${c.action}</p>
+        <div class="progress-row">
+          <div class="progress-bar">
+            <div class="fill ${triggered ? 'triggered' : ''}" style="width:${pct}%"></div>
+          </div>
+          <span class="progress-pct">${pct}%</span>
+        </div>
+        <div class="stats">
+          <span><strong>${c.current.toLocaleString()}</strong> / ${c.threshold.toLocaleString()} pledged</span>
+          <span>${triggered ? '✓ TRIGGERED' : 'Deadline: ' + c.deadline}</span>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function showDetail(id) {
+  const c = DB.campaigns.find(x => x.id === id);
+  if (!c) return;
+  const pct = Math.min(100, Math.round((c.current / c.threshold) * 100));
+  const triggered = c.triggered || c.current >= c.threshold;
+
+  document.getElementById('detail-content').innerHTML = `
+    <div class="target" style="font-size:13px;color:var(--accent);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">${c.target}</div>
+    <h2>${c.title}</h2>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:16px;">Started by ${c.createdBy}</p>
+
+    <div class="demands">
+      <h3>Demands</h3>
+      <ol>${c.demands.map(d => `<li>${d}</li>`).join('')}</ol>
+    </div>
+
+    <div class="action-text">
+      <strong>Your pledge:</strong> "${c.action}"
+    </div>
+
+    <div class="progress-row">
+      <div class="progress-bar">
+        <div class="fill ${triggered ? 'triggered' : ''}" style="width:${pct}%"></div>
+      </div>
+      <span class="progress-pct">${pct}%</span>
+    </div>
+    <div class="stats" style="display:flex;gap:24px;font-size:13px;color:var(--muted);margin-bottom:16px;">
+      <span><strong style="color:var(--ink);">${c.current.toLocaleString()}</strong> / ${c.threshold.toLocaleString()} pledged</span>
+      <span>${triggered ? '✓ THRESHOLD MET — ACTION TRIGGERED' : 'Deadline: ' + c.deadline}</span>
+    </div>
+
+    ${!c.userSigned ? `
+    <div class="accountability" id="accountability-${c.id}">
+      <h4>How will you stay accountable? (optional)</h4>
+      <label><input type="checkbox" value="buddy"> Accountability Buddy — get paired with another pledger</label>
+      <label><input type="checkbox" value="reminders"> Daily Reminders — we'll help you stay on track</label>
+      <label><input type="checkbox" value="public"> Public Pledge — your name is visible to others</label>
+      <label><input type="checkbox" value="streak"> Streak Tracker — track your days of follow-through</label>
+    </div>` : `
+    <div class="accountability-stats">
+      ${c.accountability ? `Accountability: ${c.accountability.buddy}% buddy · ${c.accountability.reminders}% reminders · ${c.accountability.public}% public · ${c.accountability.streak}% streak` : ''}
+    </div>`}
+
+    <button class="btn ${c.userSigned ? 'committed' : ''} ${triggered && c.userSigned ? 'triggered' : ''}"
+            onclick="${c.userSigned ? '' : `signCampaign(${c.id})`}"
+            ${c.userSigned ? 'disabled' : ''}>
+      ${c.userSigned ? (triggered ? 'TRIGGERED — Time to Act' : '✓ You\'re Committed') : 'I Commit'}
+    </button>
+    ${!c.userSigned ? '<p style="font-size:12px;color:var(--muted);margin-top:6px;">Your pledge activates only if ' + c.threshold.toLocaleString() + ' people commit.</p>' : ''}
+
+    <div class="signers">
+      <strong style="color:var(--ink);">Recent signers:</strong>
+      ${c.signers.map(s => `<span class="signer">${s}</span>`).join(' · ')}
+      ${c.current > c.signers.length ? ` and ${(c.current - c.signers.length).toLocaleString()} others` : ''}
+    </div>
+  `;
+  showView('detail');
+  document.getElementById('detail-view').style.display = 'block';
+}
+
+function signCampaign(id) {
+  const c = DB.campaigns.find(x => x.id === id);
+  if (!c || c.userSigned) return;
+  // Capture accountability choices
+  const el = document.getElementById('accountability-' + id);
+  const choices = el ? Array.from(el.querySelectorAll('input:checked')).map(i => i.value) : [];
+  c.userSigned = true;
+  c.userAccountability = choices;
+  c.current += 1;
+  c.signers.unshift("You" + (choices.length ? ' [' + choices.join(', ') + ']' : ''));
+  if (c.current >= c.threshold) c.triggered = true;
+  showDetail(id);
+}
+
+function addDemandInput() {
+  const container = document.getElementById('demand-inputs');
+  const count = container.children.length + 1;
+  const row = document.createElement('div');
+  row.className = 'demand-row';
+  row.innerHTML = `<input type="text" placeholder="Demand #${count}"><button onclick="this.parentElement.remove()">−</button>`;
+  container.appendChild(row);
+}
+
+function createCampaign() {
+  const target = document.getElementById('create-target').value.trim();
+  const title = document.getElementById('create-title').value.trim();
+  const action = document.getElementById('create-action').value.trim();
+  const threshold = parseInt(document.getElementById('create-threshold').value) || 10000;
+  const deadline = document.getElementById('create-deadline').value || '2027-01-01';
+  const demandInputs = document.querySelectorAll('#demand-inputs input');
+  const demands = Array.from(demandInputs).map(i => i.value.trim()).filter(Boolean);
+
+  if (!target || !title || !action || demands.length === 0) {
+    alert('Please fill in all fields and add at least one demand.');
+    return;
+  }
+
+  DB.campaigns.unshift({
+    id: DB.nextId++,
+    target, title, action, demands, threshold,
+    current: 1,
+    deadline,
+    signers: ["You (creator)"],
+    createdBy: "You",
+    userSigned: true
+  });
+
+  showView('list');
+}
+
+// ── Nav ──
+document.querySelectorAll('nav a').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    showView(a.dataset.view);
+  });
+});
+
+// ── Init ──
+renderList();
+</script>
+</body>
+</html>

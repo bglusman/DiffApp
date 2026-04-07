@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KICKSTOPPER // They have lobbyists. We have each other.</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Anton&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #0a0a0a; color: #e0e0e0; font-family: 'Space Mono', monospace; overflow-x: hidden; }
+  :root { --neon-yellow: #d4ff00; --neon-pink: #ff2d7c; --neon-green: #00ff88; --rage-red: #ff1a1a; }
+
+  /* TICKER */
+  .ticker-wrap { background: var(--neon-yellow); overflow: hidden; white-space: nowrap; position: fixed; top: 0; width: 100%; z-index: 999; border-bottom: 3px solid #000; }
+  .ticker { display: inline-block; animation: scroll 30s linear infinite; padding: 6px 0; }
+  .ticker span { font-family: 'Space Mono', monospace; font-size: 13px; color: #000; font-weight: 700; padding: 0 40px; text-transform: uppercase; }
+  .ticker span em { font-style: normal; color: var(--neon-pink); }
+  @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+  /* HEADER */
+  .header { text-align: center; padding: 80px 20px 30px; position: relative; }
+  .header h1 { font-family: 'Anton', sans-serif; font-size: clamp(3rem, 10vw, 7rem); color: var(--neon-yellow);
+    text-shadow: 4px 4px 0 var(--neon-pink), -2px -2px 0 var(--neon-green); letter-spacing: 4px;
+    transform: rotate(-2deg); display: inline-block; }
+  .header .tagline { font-size: 1.1rem; color: var(--neon-green); margin-top: 10px;
+    border: 2px dashed var(--neon-green); display: inline-block; padding: 8px 20px; transform: rotate(1deg); }
+  .body-count { font-family: 'Anton', sans-serif; font-size: 2.5rem; color: var(--neon-yellow); margin: 25px 0 5px;
+    text-shadow: 0 0 20px var(--neon-yellow), 0 0 40px var(--neon-yellow); }
+  .body-count-label { font-size: 0.85rem; color: #888; text-transform: uppercase; letter-spacing: 6px; }
+
+  /* SECTION TITLES */
+  .section-title { font-family: 'Anton', sans-serif; font-size: 2.2rem; color: var(--neon-pink);
+    text-transform: uppercase; padding: 40px 20px 20px; text-align: center;
+    text-shadow: 3px 3px 0 rgba(255,45,124,0.3); letter-spacing: 3px; }
+
+  /* CAMPAIGN CARDS */
+  .ops-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;
+    padding: 20px 40px; max-width: 1200px; margin: 0 auto; }
+  .op-card { background: #1a1a1a; border: 3px solid var(--neon-yellow); padding: 25px; position: relative;
+    transition: transform 0.2s; cursor: default; }
+  .op-card:nth-child(odd) { transform: rotate(-1.2deg); }
+  .op-card:nth-child(even) { transform: rotate(0.8deg); }
+  .op-card:hover { transform: rotate(0deg) scale(1.02); z-index: 10; }
+  .op-card .stamp { position: absolute; top: 12px; right: 12px; font-family: 'Anton', sans-serif;
+    font-size: 0.8rem; padding: 4px 12px; transform: rotate(8deg);
+    border: 3px solid; text-transform: uppercase; letter-spacing: 2px; opacity: 0.9; }
+  .stamp.active { color: var(--neon-green); border-color: var(--neon-green); }
+  .stamp.triggered { color: var(--rage-red); border-color: var(--rage-red); background: rgba(255,26,26,0.15); }
+  .stamp.won { color: var(--neon-yellow); border-color: var(--neon-yellow); }
+  .op-card h3 { font-family: 'Anton', sans-serif; font-size: 1.5rem; color: #fff; margin-bottom: 4px; }
+  .op-card .target { color: var(--neon-pink); font-size: 0.85rem; text-transform: uppercase; margin-bottom: 12px; }
+  .op-card .desc { font-size: 0.8rem; color: #aaa; line-height: 1.5; margin-bottom: 16px; }
+
+  /* CORPORATE PAIN METER */
+  .pain-meter { margin: 12px 0; }
+  .pain-label { display: flex; justify-content: space-between; font-size: 0.7rem; color: #666; margin-bottom: 4px; }
+  .pain-track { height: 20px; background: #333; border: 2px solid #555; position: relative; overflow: hidden; }
+  .pain-fill { height: 100%; transition: width 0.6s ease; background: linear-gradient(90deg, var(--neon-green), var(--neon-yellow), var(--neon-pink), var(--rage-red)); }
+  .pain-track::after { content: 'CORPORATE PAIN METER'; position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%,-50%); font-size: 0.55rem; color: #fff; letter-spacing: 3px; mix-blend-mode: difference; }
+
+  /* SIGN BUTTON */
+  .sign-btn { width: 100%; padding: 12px; font-family: 'Anton', sans-serif; font-size: 1.1rem;
+    background: var(--neon-yellow); color: #000; border: none; cursor: pointer; text-transform: uppercase;
+    letter-spacing: 3px; margin-top: 10px; transition: all 0.15s; }
+  .sign-btn:hover { background: var(--neon-pink); color: #fff; transform: scale(1.03); }
+  .sign-btn.signed { background: #333; color: var(--neon-green); cursor: default; letter-spacing: 5px; }
+
+  /* ACCOUNTABILITY OPTIONS */
+  .acct-options { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+  .acct-btn { font-family: 'Space Mono', monospace; font-size: 0.65rem; padding: 4px 10px; background: none;
+    border: 1px solid #444; color: #888; cursor: pointer; text-transform: uppercase; transition: all 0.15s; }
+  .acct-btn:hover { border-color: var(--neon-yellow); color: var(--neon-yellow); }
+  .acct-btn.active { border-color: var(--neon-green); color: var(--neon-green); background: rgba(0,255,136,0.1); }
+
+  /* WALL OF SHAME */
+  .shame-section { max-width: 1000px; margin: 0 auto; padding: 0 40px 60px; }
+  .shame-card { background: #1a0a0a; border: 3px solid var(--rage-red); padding: 20px; margin-bottom: 20px;
+    position: relative; transform: rotate(0.5deg); }
+  .shame-card::before { content: 'BUSTED'; position: absolute; top: -14px; left: 20px;
+    background: var(--rage-red); color: #000; font-family: 'Anton', sans-serif; padding: 2px 16px;
+    font-size: 0.9rem; letter-spacing: 3px; transform: rotate(-3deg); }
+  .shame-card h3 { font-family: 'Anton', sans-serif; color: var(--rage-red); font-size: 1.3rem; margin-top: 8px; }
+  .shame-card p { font-size: 0.8rem; color: #aaa; margin-top: 8px; line-height: 1.5; }
+  .shame-result { color: var(--neon-green); font-size: 0.8rem; margin-top: 10px; font-weight: 700; }
+
+  /* FLASH OVERLAY */
+  .flash-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--neon-yellow);
+    z-index: 9999; display: flex; align-items: center; justify-content: center; pointer-events: none;
+    opacity: 0; transition: opacity 0.1s; }
+  .flash-overlay.show { opacity: 1; }
+  .flash-overlay .locked-text { font-family: 'Anton', sans-serif; font-size: 6rem; color: #000;
+    transform: rotate(-5deg); text-shadow: 4px 4px 0 var(--neon-pink); letter-spacing: 10px; }
+
+  /* FOOTER */
+  .footer { text-align: center; padding: 40px 20px; border-top: 2px dashed #333; }
+  .footer p { font-size: 0.75rem; color: #555; }
+  .footer .manifesto { color: var(--neon-yellow); font-family: 'Anton', sans-serif; font-size: 1.3rem;
+    margin-bottom: 15px; letter-spacing: 2px; }
+</style>
+</head>
+<body>
+
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker" id="ticker"></div>
+</div>
+
+<!-- FLASH OVERLAY -->
+<div class="flash-overlay" id="flashOverlay">
+  <div class="locked-text">LOCKED IN</div>
+</div>
+
+<!-- HEADER -->
+<div class="header">
+  <h1>KICKSTOPPER</h1>
+  <div class="tagline">They have lobbyists. We have each other.</div>
+  <div class="body-count" id="bodyCount">0</div>
+  <div class="body-count-label">Total Body Count (pledges worldwide)</div>
+</div>
+
+<!-- ACTIVE OPERATIONS -->
+<div class="section-title">Active Operations</div>
+<div class="ops-grid" id="opsGrid"></div>
+
+<!-- WALL OF SHAME -->
+<div class="section-title" style="color: var(--rage-red); text-shadow: 3px 3px 0 rgba(255,26,26,0.3);">
+  Wall of Shame
+</div>
+<div class="shame-section" id="shameWall"></div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <div class="manifesto">NO ETHICAL CONSUMPTION? FINE. LET'S MAKE UNETHICAL CONSUMPTION EXPENSIVE.</div>
+  <p>kickstopper is not affiliated with any corporation, because obviously</p>
+  <p style="margin-top:8px; color:#333;">prototype 03 // ironic punk // built with spite and CSS</p>
+</div>
+
+<script>
+// ---- DATA ----
+const campaigns = [
+  { id: 1, name: "Operation: Drought Their Profits", target: "NestleCorp",
+    desc: "They bottle water from drought-stricken communities and sell it back at 4000% markup. Cool business model, psychos.",
+    threshold: 50000, pledges: 34782, status: "active",
+    deadline: "2026-06-01", demand: "Divest from all water extraction in regions under drought emergency" },
+  { id: 2, name: "Operation: Touch Grass", target: "DoomScroll Inc.",
+    desc: "Internal docs leaked showing they KNOW their algo increases teen anxiety by 40% and they just... kept going. Normal behavior.",
+    threshold: 100000, pledges: 89201, status: "active",
+    deadline: "2026-05-15", demand: "Open-source the recommendation algorithm. Let independent researchers audit it." },
+  { id: 3, name: "Operation: Pay Your Damn Taxes", target: "Amazoom",
+    desc: "Made $47B in profit. Paid $0 in federal taxes. Again. You paid more taxes on your sad little paycheck. We all did.",
+    threshold: 200000, pledges: 187430, status: "active",
+    deadline: "2026-07-01", demand: "Support the Corporate Minimum Tax Act or we walk" },
+  { id: 4, name: "Operation: Breathe Free", target: "PetroGiant Energy",
+    desc: "Exposed for funding climate denial research while their own scientists confirmed everything in 1987. Thirty-nine years of gaslighting. Literally.",
+    threshold: 75000, pledges: 75000, status: "triggered",
+    deadline: "2026-03-01", demand: "Commit 50% of R&D budget to renewables by 2028" },
+  { id: 5, name: "Operation: Living Wage or Die", target: "BurgerBoss",
+    desc: "CEO made $22M last year. Workers can't afford the food they serve. The CEO-to-worker pay ratio is 1,200:1. Chew on that.",
+    threshold: 40000, pledges: 28100, status: "active",
+    deadline: "2026-08-01", demand: "Minimum $22/hr for all employees, including franchise workers" }
+];
+
+const shameData = [
+  { company: "FashionNova Ultra", operation: "Operation: Sweatshop Spotlight",
+    story: "Hit critical mass of 120K pledges. Company ignored the deadline. Boycott triggered. Q3 revenue dropped 31%. Stock tanked. CEO released a 'heartfelt apology' written by a PR firm. Workers still waiting on those promised wage increases.",
+    result: "REVENUE DOWN 31% // STOCK -44% // CEO 'APOLOGIZED' (lol)" },
+  { company: "DataVault Cloud", operation: "Operation: Delete My Face",
+    story: "Caught selling facial recognition data to authoritarian regimes. 90K pledges hit critical mass in 48 hours. Company caved in 2 weeks, deleted the dataset, and fired their head of partnerships. Sometimes it actually works.",
+    result: "DATASET DELETED // HEAD OF PARTNERSHIPS FIRED // POLICY CHANGED" }
+];
+
+const tickerEvents = [
+  "NestleCorp operation just hit 34K pledges", "someone in Portland went Ride or Die on Operation: Touch Grass",
+  "BurgerBoss CEO googled 'kickstopper' 47 times today (hi bestie)", "new pledge every 3.2 seconds this hour",
+  "Operation: Pay Your Damn Taxes approaching CRITICAL MASS", "Amazoom stock dipped 2% since campaign launched (coincidence? no.)",
+  "420 people signed up in the last hour (nice)", "PetroGiant boycott officially TRIGGERED -- it's on",
+  "someone pledged Loud and Proud and posted it on linkedin (absolute legend)", "Wall of Shame got a new entry and it feels GREAT"
+];
+
+const signedOps = new Set();
+const acctState = {};
+
+// ---- RENDER ----
+function renderTicker() {
+  const el = document.getElementById('ticker');
+  const doubled = [...tickerEvents, ...tickerEvents];
+  el.innerHTML = doubled.map(e => `<span>// <em>${e}</em></span>`).join('');
+}
+
+function renderBodyCount() {
+  const total = campaigns.reduce((s, c) => s + c.pledges, 0);
+  const el = document.getElementById('bodyCount');
+  animateCount(el, 0, total, 1500);
+}
+
+function animateCount(el, start, end, duration) {
+  const startTime = performance.now();
+  function tick(now) {
+    const progress = Math.min((now - startTime) / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    el.textContent = Math.floor(start + (end - start) * eased).toLocaleString();
+    if (progress < 1) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+
+function renderCampaigns() {
+  const grid = document.getElementById('opsGrid');
+  grid.innerHTML = campaigns.filter(c => c.status !== 'won').map(c => {
+    const pct = Math.min((c.pledges / c.threshold) * 100, 100);
+    const stampClass = c.status === 'triggered' ? 'triggered' : 'active';
+    const stampText = c.status === 'triggered' ? 'TRIGGERED' : 'RECRUITING';
+    const signed = signedOps.has(c.id);
+    const acct = acctState[c.id] || [];
+    return `
+      <div class="op-card">
+        <div class="stamp ${stampClass}">${stampText}</div>
+        <h3>${c.name}</h3>
+        <div class="target">vs. ${c.target}</div>
+        <div class="desc">${c.desc}</div>
+        <div class="desc" style="color:var(--neon-yellow);">DEMAND: ${c.demand}</div>
+        <div class="pain-meter">
+          <div class="pain-label">
+            <span>${c.pledges.toLocaleString()} pledged</span>
+            <span>Critical Mass: ${c.threshold.toLocaleString()}</span>
+          </div>
+          <div class="pain-track"><div class="pain-fill" style="width:${pct}%"></div></div>
+        </div>
+        ${signed
+          ? `<button class="sign-btn signed" disabled>LOCKED IN</button>`
+          : `<button class="sign-btn" onclick="signUp(${c.id})">I'm in -- let's wreck their quarterly earnings</button>`}
+        <div class="acct-options">
+          ${renderAcctBtn(c.id, 'ride-or-die', 'Ride or Die', acct)}
+          ${renderAcctBtn(c.id, 'nag-me', 'Nag Me', acct)}
+          ${renderAcctBtn(c.id, 'loud-and-proud', 'Loud & Proud', acct)}
+          ${renderAcctBtn(c.id, 'on-the-record', 'On the Record', acct)}
+        </div>
+      </div>`;
+  }).join('');
+}
+
+function renderAcctBtn(cId, key, label, active) {
+  const isActive = active.includes(key);
+  return `<button class="acct-btn ${isActive ? 'active' : ''}" onclick="toggleAcct(${cId},'${key}')">${isActive ? '+ ' : ''}${label}</button>`;
+}
+
+function renderShameWall() {
+  const wall = document.getElementById('shameWall');
+  wall.innerHTML = shameData.map(s => `
+    <div class="shame-card">
+      <h3>${s.company} -- ${s.operation}</h3>
+      <p>${s.story}</p>
+      <div class="shame-result">${s.result}</div>
+    </div>`).join('');
+}
+
+// ---- INTERACTIONS ----
+function signUp(id) {
+  signedOps.add(id);
+  const camp = campaigns.find(c => c.id === id);
+  camp.pledges++;
+  if (camp.pledges >= camp.threshold) camp.status = 'triggered';
+
+  // flash effect
+  const overlay = document.getElementById('flashOverlay');
+  overlay.classList.add('show');
+  setTimeout(() => overlay.classList.remove('show'), 400);
+
+  renderCampaigns();
+  renderBodyCount();
+}
+
+function toggleAcct(cId, key) {
+  if (!acctState[cId]) acctState[cId] = [];
+  const arr = acctState[cId];
+  const idx = arr.indexOf(key);
+  if (idx === -1) arr.push(key); else arr.splice(idx, 1);
+  renderCampaigns();
+}
+
+// ---- INIT ----
+renderTicker();
+renderCampaigns();
+renderShameWall();
+renderBodyCount();
+</script>
+</body>
+</html>
